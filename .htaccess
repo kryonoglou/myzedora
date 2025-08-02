@@ -1,0 +1,53 @@
+RewriteEngine On
+RewriteBase /
+
+RewriteCond %{QUERY_STRING} ^slug=([^&]+)$
+RewriteRule ^post/index\.php$ /post/%1? [R=301,L]
+
+RewriteCond %{QUERY_STRING} ^slug=([^&]+)$
+RewriteRule ^project/index\.php$ /project/%1? [R=301,L]
+
+RewriteRule ^login/?$ usr/login.php [L]
+RewriteRule ^register/?$ usr/register.php [L]
+RewriteRule ^logout/?$ usr/logout.php [L]
+RewriteRule ^forgot-password/?$ usr/forgot_password.php [L]
+RewriteRule ^edit-profile/?$ usr/edit_profile.php [L]
+RewriteRule ^change-password/?$ usr/password.php [L]
+RewriteRule ^erase-account/?$ usr/erase.php [L]
+RewriteRule ^settings/?$ settings.php [L]
+RewriteRule ^statistics/?$ statistics/index.php [L]
+RewriteRule ^statistics/members/?$ statistics/members.php [L]
+RewriteRule ^statistics/full-report/?$ statistics/full.php [L]
+RewriteRule ^posts/?$ posts.php [L]
+RewriteRule ^library/?$ library.php [L]
+RewriteRule ^send-announcements/?$ sendtoall.php [L]
+RewriteRule ^manage/?$ manage/index.php [L]
+RewriteRule ^manage/add-post/?$ manage/add_post.php [L]
+RewriteRule ^manage/add-project/?$ manage/add_project.php [L]
+RewriteRule ^manage/backup/?$ manage/backup.php [L]
+RewriteRule ^terms/?$ usr/terms.php [L]
+RewriteRule ^backup/?$ includes/backup.php [L]
+
+RewriteRule ^styles/?$ styles/index.php [L]
+RewriteRule ^styles/add/?$ styles/add.php [L]
+RewriteRule ^styles/edit/([0-9]+)/?$ styles/edit.php?id=$1 [L]
+RewriteRule ^styles/delete/([0-9]+)/?$ styles/delete.php?id=$1 [L]
+RewriteRule ^styles/backup/?$ styles/backup.php [L]
+
+RewriteRule ^post/([^/]+)/?$ post/index.php?slug=$1 [L]
+RewriteRule ^project/([^/]+)/?$ project/index.php?slug=$1 [L]
+RewriteRule ^@([^/]+)/?$ usr/profile.php?username=$1 [L]
+RewriteRule ^manage/edit-post/([0-9]+)/?$ manage/edit_post.php?id=$1 [L]
+RewriteRule ^manage/edit-project/([0-9]+)/?$ manage/edit_project.php?id=$1 [L]
+RewriteRule ^manage/delete/(post|project)/([0-9]+)/?$ manage/delete_item.php?type=$1&id=$2 [L]
+RewriteRule ^manage/delete-user/([0-9]+)/?$ manage/delete_user.php?id=$1 [L]
+
+RewriteRule ^activate/?$ usr/activate.php [L,QSA]
+RewriteRule ^reset-password/?$ usr/reset_password.php [L,QSA]
+
+RewriteRule ^sitemap\.xml$ includes/sitemap.php [L]
+RewriteRule ^robots\.txt$ includes/robots.php [L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . index.php [L]
