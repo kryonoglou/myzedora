@@ -23,11 +23,14 @@ return [
     'admin_pass_label' => 'Κωδικός Πρόσβασης Διαχειριστή',
     'install_button' => 'Εγκατάσταση myZedora CMS',
     'success_title' => 'Η Εγκατάσταση Ολοκληρώθηκε!',
-    'success_message' => 'Το myZedora CMS (v1.0-beta) εγκαταστάθηκε με επιτυχία. Για λόγους ασφαλείας, ο φάκελος εγκατάστασης έχει κλειδωθεί. Μπορείτε τώρα να εξερευνήσετε το νέο σας σύστημα.',
+    'success_message' => 'Το myZedora CMS (v1.1-beta) εγκαταστάθηκε με επιτυχία. Για λόγους ασφαλείας, ο φάκελος εγκατάστασης έχει κλειδωθεί. Μπορείτε τώρα να εξερευνήσετε το νέο σας σύστημα.',
     'visit_site_button' => 'Εκκίνηση myZedora CMS',
 
     'site_settings' => [
         'site_title' => 'myZedora',
+
+        'enable_tinymce' => '0',
+        'tinymce_api_key' => '',
 
         'logo_text' => '{{site_title}}',
         'menu_about' => 'Σχετικά',
@@ -51,8 +54,7 @@ return [
         'hero_button_text' => 'Μάθετε Περισσότερα',
         
         'about_title' => 'Σχετικά με Εμένα',
-        'about_p1' => 'Εδώ μπορείτε να συστηθείτε. Μιλήστε για το πάθος σας, τις δεξιότητές σας και τι κάνει τη δουλειά σας μοναδική. Μια καλή ενότητα "Σχετικά" βοηθά στη δημιουργία μιας σύνδεσης με τους επισκέπτες σας.',
-        'about_p2' => 'Μπορείτε να επεξεργαστείτε αυτό το κείμενο από τις Ρυθμίσεις Συστήματος. Μοιραστείτε το υπόβαθρό σας, την εμπειρία σας ή την αποστολή του brand σας. Κάντε αυτόν τον χώρο πραγματικά δικό σας.',
+        'about_content' => '<p class="text-lg text-gray-300 leading-relaxed mb-6">Εδώ μπορείτε να συστηθείτε. Μιλήστε για το πάθος σας, τις δεξιότητές σας και τι κάνει τη δουλειά σας μοναδική. Μια καλή ενότητα "Σχετικά" βοηθά στη δημιουργία μιας σύνδεσης με τους επισκέπτες σας.</p><p class="text-lg text-gray-300 leading-relaxed">Μπορείτε να επεξεργαστείτε αυτό το κείμενο από τον πίνακα Διαχείρισης Αρχικής. Μοιραστείτε το υπόβαθρό σας, την εμπειρία σας ή την αποστολή του brand σας. Κάντε αυτόν τον χώρο πραγματικά δικό σας.</p>',
 
         'portfolio_title' => 'Παρουσιάστε τα Έργα σας',
         'blog_title' => 'Μοιραστείτε τα Νέα σας',
@@ -296,13 +298,12 @@ return [
         'settings_hint_site_name' => 'Αυτό το όνομα θα αντικαταστήσει το {{site_title}} σε ολόκληρο τον ιστότοπο.',
         'settings_label_url_format' => 'Μορφή URL',
         'settings_label_logo_text' => 'Κείμενο Λογοτύπου',
-        'settings_label_hero_title' => 'Κύριος Τίτλος',
-        'settings_label_hero_subtitle' => 'Υπότιτλος (Κείμενο που πληκτρολογείται, χωρισμένο με κόμμα)',
-        'settings_label_about_p1' => 'Σχετικά με Εμένα (Παράγραφος 1)',
-        'settings_label_about_p2' => 'Σχετικά με Εμένα (Παράγραφος 2)',
-        'settings_label_contact_subtitle' => 'Υπότιτλος Επικοινωνίας',
-        'settings_label_contact_button' => 'Κείμενο Κουμπιού Επικοινωνίας',
-        'settings_label_contact_email' => 'Email Επικοινωνίας',
+        'contact_section_title' => 'Ενότητα Επικοινωνίας',
+        'hero_title_label' => 'Τίτλος',
+        'hero_subtitle_label' => 'Υπότιτλος (Κείμενο που πληκτρολογείται, χωρισμένο με κόμμα)',
+        'contact_subtitle_label' => 'Υπότιτλος',
+        'contact_button_label' => 'Κείμενο Κουμπιού',
+        'contact_email_label' => 'Email Επικοινωνίας',
         'settings_label_footer_copyright' => 'Κείμενο Copyright',
         'settings_label_seo_title' => 'Τίτλος SEO (Τίτλος Καρτέλας)',
         'settings_label_meta_description' => 'Meta Description',
@@ -386,11 +387,45 @@ return [
         'styles_backup_restore_success' => 'Τα στυλ επαναφέρθηκαν με επιτυχία!',
         'styles_backup_restore_fail' => 'Η επαναφορά των στυλ απέτυχε. Παρακαλώ ελέγξτε τη μορφή του αρχείου.',
 
-        'settings_label_hero_bg_url' => 'URL Εικόνας Φόντου Κεντρικής Ενότητας',
-        'settings_hint_hero_bg_url' => 'Προαιρετικό. Πλήρης διεύθυνση URL για μια εικόνα που θα εμφανίζεται πίσω από το κεντρικό κείμενο. Θα καλύψει ολόκληρη την ενότητα.',
+        'hero_section_title' => 'Ενότητα Hero',
+        'hero_bg_url_label' => 'URL Εικόνας Φόντου',
+        'hero_bg_url_hint' => 'Προαιρετικό. Πλήρης διεύθυνση URL για μια εικόνα που θα εμφανίζεται πίσω από το κεντρικό κείμενο.',
 
         'menu_terms' => 'Όροι Χρήσης',
         'terms_title' => 'Όροι Χρήσης',
+
+        //new//
+
+        'menu_manage_home' => 'Διαχείριση Αρχικής',
+        'manage_home_title' => 'Διαχείριση Αρχικής Σελίδας',
+        'manage_home_subtitle' => 'Προσαρμόστε το περιεχόμενο της αρχικής σας σελίδας.',
+        'home_buttons_title' => 'Κουμπιά Ενότητας Hero',
+        'btn_text_label' => 'Κείμενο Κουμπιού',
+        'btn_url_label' => 'URL Κουμπιού',
+        'btn_color_label' => 'Χρώμα Κουμπιού',
+        'btn_new_tab_label' => 'Άνοιγμα σε νέα καρτέλα',
+        'add_button_btn' => 'Προσθήκη Κουμπιού',
+        'save_changes_btn' => 'Αποθήκευση Αλλαγών',
+        'button_update_success' => 'Η αρχική σελίδα ενημερώθηκε με επιτυχία!',
+        'button_update_fail' => 'Η ενημέρωση των κουμπιών της αρχικής σελίδας απέτυχε.',
+
+        'about_section_title' => 'Ενότητα Σχετικά',
+        'about_title_label' => 'Τίτλος Ενότητας',
+        'about_content_label' => 'Περιεχόμενο (επιτρέπεται HTML)',
+
+        'view_all_projects_btn' => 'Προβολή Όλων των Έργων',
+
+        'settings_editor_title' => 'Ρυθμίσεις Επεξεργαστή Κειμένου',
+        'settings_enable_tinymce_label' => 'Ενεργοποίηση Visual Editor TinyMCE',
+        'settings_enable_tinymce_hint' => 'Ενεργοποιήστε έναν επεξεργαστή εμπλουτισμένου κειμένου. Η απενεργοποίηση θα εμφανίσει ένα απλό πεδίο κειμένου HTML.',
+        'settings_tinymce_api_key_label' => 'Κλειδί API TinyMCE',
+        'settings_tinymce_api_key_hint' => 'Το TinyMCE είναι δωρεάν αλλά απαιτεί κλειδί API. Αποκτήστε ένα κλειδί από την επίσημη ιστοσελίδα του TinyMCE για να ενεργοποιήσετε τον επεξεργαστή.',
+
+        'settings_tab_general' => 'Γενικά',
+        'settings_tab_editor' => 'Επεξεργαστής',
+        'settings_tab_seo' => 'SEO',
+        'settings_tab_smtp' => 'SMTP',
+        
     ],
 
     'sample_projects' => [

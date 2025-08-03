@@ -23,11 +23,14 @@ return [
     'admin_pass_label' => 'Admin Password',
     'install_button' => 'Install myZedora CMS',
     'success_title' => 'Installation Complete!',
-    'success_message' => 'myZedora CMS (v1.0-beta) has been successfully installed. For security, the installation directory has been locked. You can now explore your new system.',
+    'success_message' => 'myZedora CMS (v1.1-beta) has been successfully installed. For security, the installation directory has been locked. You can now explore your new system.',
     'visit_site_button' => 'Launch myZedora CMS',
 
     'site_settings' => [
         'site_title' => 'myZedora',
+
+        'enable_tinymce' => '0',
+        'tinymce_api_key' => '',
 
         'logo_text' => '{{site_title}}',
         'menu_about' => 'About',
@@ -51,8 +54,7 @@ return [
         'hero_button_text' => 'Discover More',
         
         'about_title' => 'About Me',
-        'about_p1' => 'This is where you can introduce yourself. Talk about your passion, your skills, and what makes your work unique. A great about section helps build a connection with your visitors.',
-        'about_p2' => 'Feel free to edit this text in the Site Settings panel. You can share your background, your experience, or the mission behind your brand. Make this space truly yours.',
+        'about_content' => '<p class="text-lg text-gray-300 leading-relaxed mb-6">This is where you can introduce yourself. Talk about your passion, your skills, and what makes your work unique. A great about section helps build a connection with your visitors.</p><p class="text-lg text-gray-300 leading-relaxed">Feel free to edit this text in the Manage Home panel. You can share your background, your experience, or the mission behind your brand. Make this space truly yours.</p>',
 
         'portfolio_title' => 'Showcase Your Projects',
         'blog_title' => 'Share Your News',
@@ -296,13 +298,12 @@ return [
         'settings_hint_site_name' => 'This name will replace {{site_title}} across the site.',
         'settings_label_url_format' => 'URL Format',
         'settings_label_logo_text' => 'Header Logo Text',
-        'settings_label_hero_title' => 'Hero Title',
-        'settings_label_hero_subtitle' => 'Hero Subtitle (Typed text, comma-separated)',
-        'settings_label_about_p1' => 'About Me (Paragraph 1)',
-        'settings_label_about_p2' => 'About Me (Paragraph 2)',
-        'settings_label_contact_subtitle' => 'Contact Subtitle',
-        'settings_label_contact_button' => 'Contact Button Text',
-        'settings_label_contact_email' => 'Contact Email Address',
+        'contact_section_title' => 'Contact Section',
+        'hero_title_label' => 'Title',
+        'hero_subtitle_label' => 'Subtitle (Typed text, comma-separated)',
+        'contact_subtitle_label' => 'Subtitle',
+        'contact_button_label' => 'Button Text',
+        'contact_email_label' => 'Contact Email Address',
         'settings_label_footer_copyright' => 'Footer Copyright Text',
         'settings_label_seo_title' => 'SEO Title (Browser Tab Title)',
         'settings_label_meta_description' => 'Meta Description',
@@ -386,11 +387,45 @@ return [
         'styles_backup_restore_success' => 'Styles restored successfully!',
         'styles_backup_restore_fail' => 'Failed to restore styles. Please check the file format.',
 
-        'settings_label_hero_bg_url' => 'Hero Background Image URL',
-        'settings_hint_hero_bg_url' => 'Optional. Provide a full URL for an image to display behind the main hero text. It will cover the entire section.',
+        'hero_section_title' => 'Hero Section',
+        'hero_bg_url_label' => 'Background Image URL',
+        'hero_bg_url_hint' => 'Optional. Full URL for an image to display behind the main hero text.',
 
         'menu_terms' => 'Terms of Service',
         'terms_title' => 'Terms of Service',
+
+        //new/
+
+        'menu_manage_home' => 'Manage Home',
+        'manage_home_title' => 'Manage Homepage',
+        'manage_home_subtitle' => 'Customize the content of your homepage.',
+        'home_buttons_title' => 'Hero Section Buttons',
+        'btn_text_label' => 'Button Text',
+        'btn_url_label' => 'Button URL',
+        'btn_color_label' => 'Button Color',
+        'btn_new_tab_label' => 'Open in new tab',
+        'add_button_btn' => 'Add Button',
+        'save_changes_btn' => 'Save Changes',
+        'button_update_success' => 'Homepage updated successfully!',
+        'button_update_fail' => 'Failed to update homepage buttons.',
+
+        'about_section_title' => 'About Section',
+        'about_title_label' => 'Section Title',
+        'about_content_label' => 'Content (HTML allowed)',
+
+        'view_all_projects_btn' => 'View All Projects',
+
+        'settings_editor_title' => 'Content Editor Settings',
+        'settings_enable_tinymce_label' => 'Enable TinyMCE Visual Editor',
+        'settings_enable_tinymce_hint' => 'Enable a rich text editor for content. Disabling this will show a plain HTML textarea.',
+        'settings_tinymce_api_key_label' => 'TinyMCE API Key',
+        'settings_tinymce_api_key_hint' => 'TinyMCE is free but requires an API key. Get a key from the official TinyMCE website to enable the editor.',
+
+        'settings_tab_general' => 'General',
+        'settings_tab_editor' => 'Editor',
+        'settings_tab_seo' => 'SEO',
+        'settings_tab_smtp' => 'SMTP',
+
     ],
 
     'sample_projects' => [

@@ -118,6 +118,7 @@ $active_style = $active_style_stmt->fetchColumn();
                             </button>
                             <div x-show="open" @click.away="open = false" class="absolute right-0 mt-2 w-48 bg-gray-800 rounded-md shadow-lg py-1 z-20" style="display: none;">
                                 <a href="<?php echo MANAGE_URL; ?>" class="block px-4 py-2 text-sm text-gray-300 hover:bg-sky-500 hover:text-white"><?php echo htmlspecialchars($settings_data['menu_manage_content']); ?></a>
+                                <a href="<?php echo MANAGE_HOME_URL; ?>" class="block px-4 py-2 text-sm text-gray-300 hover:bg-sky-500 hover:text-white"><?php echo htmlspecialchars($settings_data['menu_manage_home']); ?></a>
                                 <a href="<?php echo STYLES_URL; ?>" class="block px-4 py-2 text-sm text-gray-300 hover:bg-sky-500 hover:text-white"><?php echo htmlspecialchars($settings_data['menu_manage_styles']); ?></a>
                                 <a href="<?php echo STATS_URL; ?>" class="block px-4 py-2 text-sm text-gray-300 hover:bg-sky-500 hover:text-white"><?php echo htmlspecialchars($settings_data['menu_statistics']); ?></a>
                                 <a href="<?php echo SEND_ANNOUNCEMENTS_URL; ?>" class="block px-4 py-2 text-sm text-gray-300 hover:bg-sky-500 hover:text-white"><?php echo htmlspecialchars($settings_data['menu_send_announcements']); ?></a>
@@ -150,6 +151,7 @@ $active_style = $active_style_stmt->fetchColumn();
             <?php if (isset($_SESSION['user_id'])): ?>
                 <?php if ($_SESSION['is_admin']): ?>
                 <a href="<?php echo MANAGE_URL; ?>" class="block py-2 text-gray-300"><?php echo htmlspecialchars($settings_data['menu_manage_content']); ?></a>
+                <a href="<?php echo MANAGE_HOME_URL; ?>" class="block py-2 text-gray-300"><?php echo htmlspecialchars($settings_data['menu_manage_home']); ?></a>
                 <a href="<?php echo STYLES_URL; ?>" class="block py-2 text-gray-300"><?php echo htmlspecialchars($settings_data['menu_manage_styles']); ?></a>
                 <a href="<?php echo STATS_URL; ?>" class="block py-2 text-gray-300"><?php echo htmlspecialchars($settings_data['menu_statistics']); ?></a>
                 <a href="<?php echo SEND_ANNOUNCEMENTS_URL; ?>" class="block py-2 text-gray-300"><?php echo htmlspecialchars($settings_data['menu_send_announcements']); ?></a>

@@ -29,6 +29,9 @@ return [
     'site_settings' => [
         'site_title' => 'myZedora',
 
+        'enable_tinymce' => '0',
+        'tinymce_api_key' => '',
+
         'logo_text' => '{{site_title}}',
         'menu_about' => 'Обо мне',
         'menu_portfolio' => 'Портфолио',
@@ -51,8 +54,7 @@ return [
         'hero_button_text' => 'Узнать больше',
         
         'about_title' => 'Обо мне',
-        'about_p1' => 'Здесь вы можете представиться. Расскажите о своей страсти, своих навыках и о том, что делает вашу работу уникальной. Хороший раздел "Обо мне" помогает наладить связь с вашими посетителями.',
-        'about_p2' => 'Не стесняйтесь редактировать этот текст в панели "Настройки сайта". Вы можете поделиться своим опытом, образованием или миссией вашего бренда. Сделайте это пространство по-настоящему вашим.',
+        'about_content' => '<p class="text-lg text-gray-300 leading-relaxed mb-6">Здесь вы можете представиться. Расскажите о своей страсти, своих навыках и о том, что делает вашу работу уникальной. Хороший раздел "Обо мне" помогает наладить связь с вашими посетителями.</p><p class="text-lg text-gray-300 leading-relaxed">Не стесняйтесь редактировать этот текст в панели "Управление главной". Вы можете поделиться своим опытом, образованием или миссией вашего бренда. Сделайте это пространство по-настоящему вашим.</p>',
 
         'portfolio_title' => 'Продемонстрируйте свои проекты',
         'blog_title' => 'Делитесь своими новостями',
@@ -296,13 +298,12 @@ return [
         'settings_hint_site_name' => 'Это название заменит {{site_title}} на всем сайте.',
         'settings_label_url_format' => 'Формат URL',
         'settings_label_logo_text' => 'Текст логотипа в шапке',
-        'settings_label_hero_title' => 'Заголовок главного экрана',
-        'settings_label_hero_subtitle' => 'Подзаголовок главного экрана (печатающийся текст, через запятую)',
-        'settings_label_about_p1' => 'Обо мне (Параграф 1)',
-        'settings_label_about_p2' => 'Обо мне (Параграф 2)',
-        'settings_label_contact_subtitle' => 'Подзаголовок контактов',
-        'settings_label_contact_button' => 'Текст кнопки контактов',
-        'settings_label_contact_email' => 'Email для контактов',
+        'contact_section_title' => 'Секция "Контакты"',
+        'hero_title_label' => 'Заголовок',
+        'hero_subtitle_label' => 'Подзаголовок (печатающийся текст, через запятую)',
+        'contact_subtitle_label' => 'Подзаголовок',
+        'contact_button_label' => 'Текст кнопки',
+        'contact_email_label' => 'Email для контактов',
         'settings_label_footer_copyright' => 'Текст авторского права в подвале',
         'settings_label_seo_title' => 'SEO-заголовок (заголовок вкладки браузера)',
         'settings_label_meta_description' => 'Мета-описание',
@@ -386,11 +387,45 @@ return [
         'styles_backup_restore_success' => 'Стили успешно восстановлены!',
         'styles_backup_restore_fail' => 'Не удалось восстановить стили. Пожалуйста, проверьте формат файла.',
 
-        'settings_label_hero_bg_url' => 'URL фонового изображения главного экрана',
-        'settings_hint_hero_bg_url' => 'Необязательно. Укажите полный URL изображения для отображения за основным текстом. Оно покроет всю секцию.',
+        'hero_section_title' => 'Секция Hero',
+        'hero_bg_url_label' => 'URL фонового изображения',
+        'hero_bg_url_hint' => 'Необязательно. Укажите полный URL изображения для отображения за основным текстом.',
 
         'menu_terms' => 'Условия использования',
         'terms_title' => 'Условия использования',
+
+        //new//
+
+        'menu_manage_home' => 'Управление главной',
+        'manage_home_title' => 'Управление главной страницей',
+        'manage_home_subtitle' => 'Настройте содержимое вашей домашней страницы.',
+        'home_buttons_title' => 'Кнопки в секции Hero',
+        'btn_text_label' => 'Текст кнопки',
+        'btn_url_label' => 'URL кнопки',
+        'btn_color_label' => 'Цвет кнопки',
+        'btn_new_tab_label' => 'Открывать в новой вкладке',
+        'add_button_btn' => 'Добавить кнопку',
+        'save_changes_btn' => 'Сохранить изменения',
+        'button_update_success' => 'Главная страница успешно обновлена!',
+        'button_update_fail' => 'Не удалось обновить кнопки на главной странице.',
+
+        'about_section_title' => 'Секция "Обо мне"',
+        'about_title_label' => 'Заголовок секции',
+        'about_content_label' => 'Содержимое (разрешен HTML)',
+
+        'view_all_projects_btn' => 'Посмотреть все проекты',
+
+        'settings_editor_title' => 'Настройки редактора контента',
+        'settings_enable_tinymce_label' => 'Включить визуальный редактор TinyMCE',
+        'settings_enable_tinymce_hint' => 'Включить редактор форматированного текста для контента. При отключении будет отображаться простое текстовое поле для HTML.',
+        'settings_tinymce_api_key_label' => 'Ключ API для TinyMCE',
+        'settings_tinymce_api_key_hint' => 'TinyMCE бесплатен, но требует ключ API. Получите ключ на официальном сайте TinyMCE, чтобы включить редактор.',
+
+        'settings_tab_general' => 'Общие',
+        'settings_tab_editor' => 'Редактор',
+        'settings_tab_seo' => 'SEO',
+        'settings_tab_smtp' => 'SMTP',
+
     ],
 
     'sample_projects' => [

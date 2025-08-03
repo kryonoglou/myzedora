@@ -7,29 +7,54 @@ if (!file_exists(__DIR__ . '/.env')) {
 
 require_once __DIR__ . '/includes/map.php';
 
+// Helper function to truncate text
+function truncate_text($text, $length) {
+    if (strlen($text) > $length) {
+        $text = substr($text, 0, $length);
+        $text = substr($text, 0, strrpos($text, ' '));
+        $text .= '...';
+    }
+    return $text;
+}
+
 $hero_bg_style = '';
 if (!empty($settings_data['hero_background_url'])) {
     $bg_url = htmlspecialchars($settings_data['hero_background_url']);
     $hero_bg_style = "style=\"background-image: url('{$bg_url}'); background-size: cover; background-position: center; background-repeat: no-repeat;\"";
 }
 
-$projects_stmt = $pdo->query("SELECT * FROM projects WHERE is_published = 1 ORDER BY display_order ASC, created_at DESC");
+$projects_stmt = $pdo->query("SELECT * FROM projects WHERE is_published = 1 ORDER BY display_order ASC, created_at DESC LIMIT 3");
 $projects = $projects_stmt->fetchAll();
 
 $posts_stmt = $pdo->query("
     SELECT posts.*, users.full_name AS author_name, users.username AS author_username, users.profile_image_url AS author_image
-    FROM posts 
-    JOIN users ON posts.user_id = users.id 
-    WHERE posts.is_published = 1 
-    ORDER BY posts.published_at DESC 
+    FROM posts
+    JOIN users ON posts.user_id = users.id
+    WHERE posts.is_published = 1
+    ORDER BY posts.published_at DESC
     LIMIT 2
 ");
 $posts = $posts_stmt->fetchAll();
 
+$home_buttons_stmt = $pdo->query("SELECT * FROM home_buttons ORDER BY display_order ASC");
+$home_buttons = $home_buttons_stmt->fetchAll();
+
+
 require_once HEADER;
 ?>
+<style>
+<?php foreach ($home_buttons as $button): ?>
+a.hero-button-<?php echo $button['id']; ?> {
+    background-color: <?php echo htmlspecialchars($button['color']); ?>;
+    transition: filter 0.3s ease;
+}
+a.hero-button-<?php echo $button['id']; ?>:hover {
+    filter: brightness(110%);
+}
+<?php endforeach; ?>
+</style>
 
-    <main class="background">
+    <main class="">
         <section id="home" class="min-h-screen flex items-center bg-transparent relative" <?php echo $hero_bg_style; ?>>
             <?php if (!empty($settings_data['hero_background_url'])): ?>
                 <div class="absolute inset-0 bg-black/50"></div>
@@ -41,10 +66,14 @@ require_once HEADER;
                 <p class="text-xl md:text-2xl font-light text-sky-300 mb-8" data-aos="fade-up" data-aos-delay="200">
                     <?php echo htmlspecialchars($settings_data['hero_subtitle_prefix']); ?> <span id="typed-text"></span>
                 </p>
-                <div data-aos="fade-up" data-aos-delay="400">
-                    <a href="#portfolio" class="bg-sky-500 text-white font-semibold px-8 py-3 rounded-lg hover:bg-sky-600 transition-all duration-300 transform hover:scale-105">
-                        <?php echo htmlspecialchars($settings_data['hero_button_text']); ?>
-                    </a>
+                <div data-aos="fade-up" data-aos-delay="400" class="flex flex-col md:flex-row items-center justify-center gap-4">
+                    <?php foreach ($home_buttons as $button): ?>
+                        <a href="<?php echo htmlspecialchars($button['url']); ?>"
+                           class="hero-button-<?php echo $button['id']; ?> text-white font-semibold px-8 py-3 rounded-lg transition-all duration-300 transform hover:scale-105"
+                           <?php if ($button['new_tab']) echo 'target="_blank" rel="noopener noreferrer"'; ?>>
+                            <?php echo htmlspecialchars($button['text']); ?>
+                        </a>
+                    <?php endforeach; ?>
                 </div>
             </div>
         </section>
@@ -53,12 +82,9 @@ require_once HEADER;
             <div class="container mx-auto px-6" data-aos="fade-up">
                 <div class="max-w-4xl mx-auto text-center">
                     <h2 class="text-3xl md:text-4xl font-bold mb-6 section-title"><?php echo htmlspecialchars($settings_data['about_title']); ?></h2>
-                    <p class="text-lg text-gray-300 leading-relaxed mb-6">
-                        <?php echo htmlspecialchars($settings_data['about_p1']); ?>
-                    </p>
-                    <p class="text-lg text-gray-300 leading-relaxed">
-                        <?php echo htmlspecialchars($settings_data['about_p2']); ?>
-                    </p>
+                    <div class="text-lg text-gray-300 leading-relaxed text-left prose prose-invert max-w-none">
+                        <?php echo nl2br($settings_data['about_content'] ?? ''); ?>
+                    </div>
                 </div>
             </div>
         </section>
@@ -66,7 +92,7 @@ require_once HEADER;
         <section id="portfolio" class="py-20 md:py-32 bg-transparent">
             <div class="container mx-auto px-6">
                 <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 section-title" data-aos="fade-up"><?php echo htmlspecialchars($settings_data['portfolio_title']); ?></h2>
-                
+
                 <?php
                 $projectCount = count($projects);
                 $portfolioContainerClasses = 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10';
@@ -75,10 +101,10 @@ require_once HEADER;
                 }
                 ?>
                 <div class="<?php echo $portfolioContainerClasses; ?>">
-                    
+
                     <?php foreach ($projects as $project): ?>
                         <div class="card bg-gray-800 rounded-lg overflow-hidden lg:max-w-sm flex flex-col" data-aos="fade-up">
-                            
+
                             <?php if (!empty($project['image_url'])): ?>
                                 <div class="card-image-wrapper">
                                    <img src="<?php echo htmlspecialchars($project['image_url']); ?>" alt="<?php echo htmlspecialchars($project['title']); ?>" class="w-full h-48 object-cover">
@@ -87,12 +113,17 @@ require_once HEADER;
 
                             <div class="p-6 flex flex-col flex-grow">
                                 <h3 class="text-xl font-bold text-white mb-2"><?php echo htmlspecialchars($project['title']); ?></h3>
-                                <p class="text-gray-400 mb-4 flex-grow"><?php echo strip_tags(nl2br($project['description']), '<b><strong><i><em><br>'); ?></p>
+                                <p class="text-gray-400 mb-4 flex-grow"><?php echo truncate_text(strip_tags($project['description']), 150); ?></p>
                                 <a href="<?php echo PROJECT_URL_BASE . urlencode($project['slug']); ?>" class="text-sky-400 hover:text-sky-300 font-semibold"><?php echo htmlspecialchars($settings_data['view_details_btn']); ?></a>
                             </div>
                         </div>
                     <?php endforeach; ?>
-
+                </div>
+                
+                <div class="text-center mt-12" data-aos="fade-up">
+                    <a href="<?php echo PROJECTS_PAGE_URL; ?>" class="bg-sky-500 text-white font-semibold px-8 py-3 rounded-lg hover:bg-sky-600 transition-colors duration-300">
+                        <?php echo htmlspecialchars($settings_data['view_all_projects_btn']); ?>
+                    </a>
                 </div>
             </div>
         </section>
@@ -101,7 +132,7 @@ require_once HEADER;
             <div class="container mx-auto px-6">
                 <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 section-title" data-aos="fade-up"><?php echo htmlspecialchars($settings_data['blog_title']); ?></h2>
                 <div class="max-w-4xl mx-auto space-y-8">
-                    
+
                     <?php foreach ($posts as $post): ?>
                         <div class="bg-gray-800/50 p-6 rounded-lg flex flex-col md:flex-row items-center md:items-start gap-6" data-aos="fade-up">
                             <div class="w-full md:w-1/4 flex-shrink-0 flex flex-col items-center text-center md:text-left">
@@ -123,7 +154,7 @@ require_once HEADER;
                     <?php endforeach; ?>
 
                 </div>
-                
+
                 <div class="text-center mt-12" data-aos="fade-up">
                     <a href="<?php echo POSTS_PAGE_URL; ?>" class="bg-sky-500 text-white font-semibold px-8 py-3 rounded-lg hover:bg-sky-600 transition-colors duration-300">
                         <?php echo htmlspecialchars($settings_data['view_all_posts_btn']); ?>

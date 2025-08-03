@@ -65,7 +65,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['restore_backup'])) {
                 $pdo->exec("DROP TABLE IF EXISTS posts;");
                 $pdo->exec("DROP TABLE IF EXISTS projects;");
 
-                $queries = array_filter(explode(';', $sql_content));
+                // FIX: Use a more reliable method to split SQL queries
+                $queries = preg_split('/;\s*(\r\n|\n|\r)/', $sql_content, -1, PREG_SPLIT_NO_EMPTY);
+
                 foreach ($queries as $query) {
                     $query = trim($query);
                     if (!empty($query)) {

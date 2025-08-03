@@ -45,16 +45,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
+$use_tinymce = ($settings_data['enable_tinymce'] ?? '0') === '1' && !empty($settings_data['tinymce_api_key']);
+
 require_once HEADER;
 ?>
-<style>
-    .wysiwyg-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 8px; background-color: #374151; border-top-left-radius: 0.5rem; border-top-right-radius: 0.5rem; border: 1px solid #4b5563; border-bottom: none; }
-    .wysiwyg-toolbar button, .wysiwyg-toolbar select, .wysiwyg-toolbar input { background-color: #4b5563; color: white; border: 1px solid #6b7280; border-radius: 0.375rem; padding: 4px 8px; font-size: 14px; cursor: pointer; }
-    .wysiwyg-toolbar button:hover, .wysiwyg-toolbar select:hover { background-color: #6b7280; }
-    .wysiwyg-toolbar input[type="color"] { padding: 0; width: 28px; height: 28px; border: none; background: none; cursor: pointer; }
-    .wysiwyg-editor { min-height: 250px; padding: 1rem; background-color: #1f2937; border: 1px solid #4b5563; border-bottom-left-radius: 0.5rem; border-bottom-right-radius: 0.5rem; color: white; outline: none; }
-    .wysiwyg-html-view { width: 100%; min-height: 250px; padding: 1rem; background-color: #111827; border: 1px solid #4b5563; border-bottom-left-radius: 0.5rem; border-bottom-right-radius: 0.5rem; color: white; font-family: monospace; }
-</style>
+<?php if ($use_tinymce): ?>
+<script src="https://cdn.tiny.cloud/1/<?php echo htmlspecialchars($settings_data['tinymce_api_key']); ?>/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+  tinymce.init({
+    selector: 'textarea.tinymce-editor',
+    plugins: 'code image link lists preview wordcount',
+    toolbar: 'undo redo | blocks | bold italic underline | forecolor backcolor | bullist numlist | image link | preview code',
+    skin: 'oxide-dark',
+    content_css: 'dark',
+    height: 350,
+    menubar: false,
+  });
+</script>
+<?php endif; ?>
 
 <main class="pt-32 pb-20">
     <section id="add-project" data-aos="fade-up">
@@ -77,23 +85,13 @@ require_once HEADER;
                     </div>
                     <div class="mb-4">
                         <label for="description" class="block text-gray-300 mb-2"><?php echo htmlspecialchars($settings_data['add_project_desc_label']); ?></label>
-                        <div class="wysiwyg-container">
-                             <div class="wysiwyg-toolbar">
-                                <button type="button" data-command="bold" title="Bold"><b>B</b></button>
-                                <button type="button" data-command="italic" title="Italic"><i>I</i></button>
-                                <button type="button" data-command="underline" title="Underline"><u>U</u></button>
-                                <button type="button" data-command="insertImage" title="Insert Image"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/><path d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z"/></svg></button>
-                                <select data-command="fontSize" title="Font Size">
-                                    <option value="3">Normal</option><option value="5">Large</option><option value="7">Heading</option><option value="1">Small</option>
-                                </select>
-                                <input type="color" data-command="foreColor" title="Font Color" value="#FFFFFF">
-                                <button type="button" data-mode="html" title="HTML Source">&lt;/&gt;</button>
-                            </div>
-                            <div class="wysiwyg-editor" contenteditable="true"></div>
-                            <textarea class="wysiwyg-html-view" style="display:none;"></textarea>
-                            <textarea id="description" name="description" style="display:none;"></textarea>
-                        </div>
-                        </div>
+                        <?php
+                            $editor_class = $use_tinymce 
+                                ? 'tinymce-editor' 
+                                : 'w-full bg-gray-900 border border-gray-600 rounded-lg py-2 px-4 text-white font-mono text-sm';
+                        ?>
+                        <textarea id="description" name="description" class="<?php echo $editor_class; ?>" <?php if (!$use_tinymce) echo 'style="height: 350px;"'; ?>></textarea>
+                    </div>
                     <div class="mb-4">
                         <label for="image_url" class="block text-gray-300 mb-2"><?php echo htmlspecialchars($settings_data['add_project_img_url_label']); ?></label>
                         <input type="text" id="image_url" name="image_url" class="w-full bg-gray-700 border border-gray-600 rounded-lg py-2 px-4 text-white">
@@ -113,66 +111,5 @@ require_once HEADER;
         </div>
     </section>
 </main>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const toolbar = document.querySelector('.wysiwyg-toolbar');
-    const editor = document.querySelector('.wysiwyg-editor');
-    const htmlView = document.querySelector('.wysiwyg-html-view');
-    const hiddenTextarea = document.getElementById('description');
-    const form = document.getElementById('project-form');
-    let currentView = 'wysiwyg';
-
-    toolbar.addEventListener('mousedown', function(e) {
-        e.preventDefault();
-    });
-
-    toolbar.addEventListener('click', function(e) {
-        let target = e.target;
-        if (target.tagName === 'B' || target.tagName === 'I' || target.tagName === 'U' || target.tagName === 'svg' || target.tagName === 'path') {
-            target = target.closest('button');
-        }
-        if (!target || target.tagName !== 'BUTTON') return;
-
-        const command = target.dataset.command;
-        if (command === 'insertImage') {
-            const url = prompt('Enter image URL:');
-            if (url) document.execCommand(command, false, url);
-        } else if (target.dataset.mode === 'html') {
-            if (currentView === 'wysiwyg') {
-                htmlView.value = editor.innerHTML;
-                editor.style.display = 'none';
-                htmlView.style.display = 'block';
-                target.innerHTML = 'WYSIWYG';
-                currentView = 'html';
-            } else {
-                editor.innerHTML = htmlView.value;
-                htmlView.style.display = 'none';
-                editor.style.display = 'block';
-                target.innerHTML = '&lt;/&gt;';
-                currentView = 'wysiwyg';
-            }
-        } else {
-            document.execCommand(command, false, null);
-        }
-        editor.focus();
-    });
-
-    toolbar.addEventListener('change', function(e) {
-        if (e.target.tagName !== 'SELECT' && e.target.tagName !== 'INPUT') return;
-        const command = e.target.dataset.command;
-        const value = e.target.value;
-        document.execCommand(command, false, value);
-        editor.focus();
-    });
-
-    form.addEventListener('submit', function() {
-        if (currentView === 'html') {
-            editor.innerHTML = htmlView.value;
-        }
-        hiddenTextarea.value = editor.innerHTML;
-    });
-});
-</script>
 
 <?php require_once FOOTER; ?>
