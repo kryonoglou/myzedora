@@ -1,0 +1,25 @@
+{
+    "name": "kryonogloiu/myzedora",
+    "description": "A personal portfolio and blog CMS built with PHP.",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "KRYONOGLOU NIKOLAOS",
+            "email": "mail@myzedora.com"
+        }
+    ],
+    "require": {
+        "phpmailer/phpmailer": "^6.8"
+    },
+    "autoload": {
+        "psr-4": {
+            "MyZedora\\": "app/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "php-http/discovery": true
+        }
+    }
+}
