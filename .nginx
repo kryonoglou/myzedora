@@ -1,0 +1,33 @@
+# This file is only a reference and won't be used automatically.
+# If you're using NGINX, copy these rules into your server block
+# It provides rewrite rules similar to .htaccess for clean URLs.
+
+# Main route handling — clean URLs fallback to view/page.php
+location / {
+    try_files $uri $uri/ @rewrite;
+}
+
+# Rewrite any non-existent path to view/page.php with full path and query string
+location @rewrite {
+    rewrite ^/(.*)$ /view/page.php?path=$1&$args last;
+}
+
+# Direct rewrite rules (no need for try_files here)
+rewrite ^/sitemap.xml$        /includes/sitemap.php       last;
+rewrite ^/robots.txt$         /includes/robots.php        last;
+rewrite ^/terms/?$            /view/terms/index.php       last;
+
+# User-related routes
+rewrite ^/login/?$            /usr/login/index.php        last;
+rewrite ^/register/?$         /usr/register/index.php     last;
+rewrite ^/forgot-password/?$  /usr/forgot_password/index.php last;
+
+# Parameterized rules (with clean URLs)
+rewrite ^/post/([^/]+)/?$     /view/post/index.php?slug=$1     last;
+rewrite ^/project/([^/]+)/?$  /view/project/index.php?slug=$1  last;
+rewrite ^/@([^/]+)/?$         /usr/profile/index.php?username=$1 last;
+
+# Static listing pages
+rewrite ^/posts/?$            /view/posts/index.php       last;
+rewrite ^/projects/?$         /view/projects/index.php    last;
+rewrite ^/members/?$          /view/members/index.php     last;
