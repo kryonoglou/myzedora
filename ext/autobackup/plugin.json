@@ -1,0 +1,14 @@
+{
+  "plugin_name": "Automatic Backup",
+  "developer": "myZedora",
+  "version": "1.0",
+  "description": "Automatically backs up the database and sends it to a specified email address.",
+  "pages": [
+    {
+      "menu_title": "Backup",
+      "slug": "backup",
+      "file": "backup_page.php",
+      "admin_only": true
+    }
+  ]
+}
