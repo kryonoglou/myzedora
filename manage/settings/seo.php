@@ -1,0 +1,9 @@
+<fieldset>
+    <legend class="sr-only"><?php echo htmlspecialchars($settings_data['settings_seo_title_section']); ?></legend>
+    <div class="space-y-6">
+        <div><label class="block text-gray-300 mb-2 font-semibold"><?php echo htmlspecialchars($settings_data['settings_label_seo_title']); ?></label><input type="text" name="settings[seo_title]" value="<?php echo htmlspecialchars($raw_settings_data['seo_title'] ?? ''); ?>" class="w-full bg-gray-700 rounded-lg py-2 px-4 text-white"></div>
+        <div><label class="block text-gray-300 mb-2 font-semibold"><?php echo htmlspecialchars($settings_data['settings_label_meta_description']); ?></label><textarea name="settings[seo_description]" rows="3" class="w-full bg-gray-700 rounded-lg py-2 px-4 text-white"><?php echo htmlspecialchars($raw_settings_data['seo_description'] ?? ''); ?></textarea></div>
+        <div><label class="block text-gray-300 mb-2 font-semibold"><?php echo htmlspecialchars($settings_data['settings_label_meta_keywords']); ?></label><input type="text" name="settings[seo_keywords]" value="<?php echo htmlspecialchars($raw_settings_data['seo_keywords'] ?? ''); ?>" class="w-full bg-gray-700 rounded-lg py-2 px-4 text-white"></div>
+            <div><label class="block text-gray-300 mb-2 font-semibold"><?php echo htmlspecialchars($settings_data['settings_label_favicon_url']); ?></label><input type="text" name="settings[favicon_url]" value="<?php echo htmlspecialchars($raw_settings_data['favicon_url'] ?? ''); ?>" class="w-full bg-gray-700 rounded-lg py-2 px-4 text-white"><p class="text-xs text-gray-500 mt-1"><?php echo htmlspecialchars($settings_data['settings_hint_favicon_url']); ?></p></div>
+    </div>
+</fieldset>
