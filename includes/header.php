@@ -125,18 +125,18 @@ $active_style = $active_style_stmt->fetchColumn();
                             if (($settings_data[$enabled_key] ?? '0') === '1') {
                                 $manifest_data = json_decode(file_get_contents($manifest_file), true);
                                 if (isset($manifest_data['pages']) && is_array($manifest_data['pages'])) {
-                                    foreach ($manifest_data['pages'] as $page) {
+                                    foreach ($manifest_data['pages'] as $plugin_page) {
 
-                                        if (isset($page['admin_only']) && $page['admin_only']) {
+                                        if (isset($plugin_page['admin_only']) && $plugin_page['admin_only']) {
                                             continue;
                                         }
-                                        if (isset($page['menu_title'], $page['slug'])) {
+                                        if (isset($plugin_page['menu_title'], $plugin_page['slug'])) {
                                             if ($use_pretty_urls) {
-                                                $page_url = HOME_URL . '' . $plugin_folder_name . '/' . $page['slug'];
+                                                $page_url = HOME_URL . '' . $plugin_folder_name . '/' . $plugin_page['slug'];
                                             } else {
-                                                $page_url = HOME_URL . 'view/page.php/' . $plugin_folder_name . '/' . $page['slug'];
+                                                $page_url = HOME_URL . 'view/page.php/' . $plugin_folder_name . '/' . $plugin_page['slug'];
                                             }
-                                            echo '<a href="' . htmlspecialchars($page_url) . '" class="nav-link text-gray-300">' . htmlspecialchars($page['menu_title']) . '</a>';
+                                            echo '<a href="' . htmlspecialchars($page_url) . '" class="nav-link text-gray-300">' . htmlspecialchars($plugin_page['menu_title']) . '</a>';
                                         }
                                     }
                                 }
@@ -170,15 +170,15 @@ $active_style = $active_style_stmt->fetchColumn();
                                         if (($settings_data[$enabled_key] ?? '0') === '1') {
                                             $manifest_data = json_decode(file_get_contents($manifest_file), true);
                                             if (isset($manifest_data['pages']) && is_array($manifest_data['pages'])) {
-                                                foreach ($manifest_data['pages'] as $page) {
+                                                foreach ($manifest_data['pages'] as $plugin_page) {
 
-                                                    if (isset($page['admin_only']) && $page['admin_only'] && isset($page['menu_title'], $page['slug'])) {
+                                                    if (isset($plugin_page['admin_only']) && $plugin_page['admin_only'] && isset($plugin_page['menu_title'], $plugin_page['slug'])) {
                                                         if ($use_pretty_urls) {
-                                                            $page_url = HOME_URL . '' . $plugin_folder_name . '/' . $page['slug'];
+                                                            $page_url = HOME_URL . '' . $plugin_folder_name . '/' . $plugin_page['slug'];
                                                         } else {
-                                                            $page_url = HOME_URL . 'view/page.php/' . $plugin_folder_name . '/' . $page['slug'];
+                                                            $page_url = HOME_URL . 'view/page.php/' . $plugin_folder_name . '/' . $plugin_page['slug'];
                                                         }
-                                                        echo '<a href="' . htmlspecialchars($page_url) . '" class="block px-4 py-2 text-sm text-gray-300 hover:bg-sky-500 hover:text-white">' . htmlspecialchars($page['menu_title']) . '</a>';
+                                                        echo '<a href="' . htmlspecialchars($page_url) . '" class="block px-4 py-2 text-sm text-gray-300 hover:bg-sky-500 hover:text-white">' . htmlspecialchars($plugin_page['menu_title']) . '</a>';
                                                     }
                                                 }
                                             }
@@ -227,18 +227,18 @@ $active_style = $active_style_stmt->fetchColumn();
                     if (($settings_data[$enabled_key] ?? '0') === '1') {
                         $manifest_data = json_decode(file_get_contents($manifest_file), true);
                         if (isset($manifest_data['pages']) && is_array($manifest_data['pages'])) {
-                            foreach ($manifest_data['pages'] as $page) {
+                            foreach ($manifest_data['pages'] as $plugin_page) {
 
-                                if (isset($page['admin_only']) && $page['admin_only']) {
+                                if (isset($plugin_page['admin_only']) && $plugin_page['admin_only']) {
                                     continue;
                                 }
-                                if (isset($page['menu_title'], $page['slug'])) {
+                                if (isset($plugin_page['menu_title'], $plugin_page['slug'])) {
                                     if ($use_pretty_urls) {
-                                        $page_url = HOME_URL . '' . $plugin_folder_name . '/' . $page['slug'];
+                                        $page_url = HOME_URL . '' . $plugin_folder_name . '/' . $plugin_page['slug'];
                                     } else {
-                                        $page_url = HOME_URL . 'page.php/' . $plugin_folder_name . '/' . $page['slug'];
+                                        $page_url = HOME_URL . 'page.php/' . $plugin_folder_name . '/' . $plugin_page['slug'];
                                     }
-                                    echo '<a href="' . htmlspecialchars($page_url) . '" class="block py-2 text-gray-300">' . htmlspecialchars($page['menu_title']) . '</a>';
+                                    echo '<a href="' . htmlspecialchars($page_url) . '" class="block py-2 text-gray-300">' . htmlspecialchars($plugin_page['menu_title']) . '</a>';
                                 }
                             }
                         }
@@ -267,14 +267,14 @@ $active_style = $active_style_stmt->fetchColumn();
                         if (($settings_data[$enabled_key] ?? '0') === '1') {
                             $manifest_data = json_decode(file_get_contents($manifest_file), true);
                             if (isset($manifest_data['pages']) && is_array($manifest_data['pages'])) {
-                                foreach ($manifest_data['pages'] as $page) {
-                                    if (isset($page['admin_only']) && $page['admin_only'] && isset($page['menu_title'], $page['slug'])) {
+                                foreach ($manifest_data['pages'] as $plugin_page) {
+                                    if (isset($plugin_page['admin_only']) && $plugin_page['admin_only'] && isset($plugin_page['menu_title'], $plugin_page['slug'])) {
                                         if ($use_pretty_urls) {
-                                            $page_url = HOME_URL . '' . $plugin_folder_name . '/' . $page['slug'];
+                                            $page_url = HOME_URL . '' . $plugin_folder_name . '/' . $plugin_page['slug'];
                                         } else {
-                                            $page_url = HOME_URL . 'page.php/' . $plugin_folder_name . '/' . $page['slug'];
+                                            $page_url = HOME_URL . 'page.php/' . $plugin_folder_name . '/' . $plugin_page['slug'];
                                         }
-                                        echo '<a href="' . htmlspecialchars($page_url) . '" class="block px-4 py-2 text-sm text-gray-300 hover:bg-sky-500 hover:text-white">' . htmlspecialchars($page['menu_title']) . '</a>';
+                                        echo '<a href="' . htmlspecialchars($page_url) . '" class="block px-4 py-2 text-sm text-gray-300 hover:bg-sky-500 hover:text-white">' . htmlspecialchars($plugin_page['menu_title']) . '</a>';
                                     }
                                 }
                             }
