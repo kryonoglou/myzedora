@@ -10,7 +10,8 @@
         }
     ],
     "require": {
-        "phpmailer/phpmailer": "^6.8"
+        "phpmailer/phpmailer": "^6.8",
+        "verot/class.upload.php": "^2.1"
     },
     "autoload": {
         "psr-4": {
