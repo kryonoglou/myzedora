@@ -2,10 +2,8 @@
 session_start();
 require_once dirname(__DIR__, 2) . '/includes/map.php';
 
-// Fetch members page visibility setting
 $visibility = $settings_data['members_page_visibility'] ?? 'members';
 
-// Redirect based on visibility setting
 if ($visibility === 'members' && !isset($_SESSION['user_id'])) {
     header("Location: " . HOME_URL);
     exit();
@@ -21,7 +19,7 @@ try {
     $offset = ($page - 1) * $limit;
 
     $count_query = "SELECT COUNT(id) FROM users";
-    $select_query = "SELECT id, full_name, username, email, created_at FROM users";
+    $select_query = "SELECT id, full_name, username, email, created_at, profile_image_url FROM users";
     $params = [];
 
     if (!empty($search_term)) {
@@ -42,13 +40,7 @@ try {
     $params[] = $offset;
 
     $stmt = $pdo->prepare($select_query);
-    $param_index = 1;
-    foreach ($params as $key => &$val) {
-        $stmt->bindParam($param_index, $val, is_int($val) ? PDO::PARAM_INT : PDO::PARAM_STR);
-        $param_index++;
-    }
-    
-    $stmt->execute();
+    $stmt->execute($params);
     $members = $stmt->fetchAll();
 
 } catch (PDOException $e) {
@@ -83,11 +75,10 @@ require_once HEADER;
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     <?php foreach ($members as $member): ?>
                         <?php
-                            $gravatar_hash = md5(strtolower(trim($member['email'])));
-                            $gravatar_url = "https://www.gravatar.com/avatar/{$gravatar_hash}?s=120&d=mp";
+                            $profile_image_src = !empty($member['profile_image_url']) ? htmlspecialchars($member['profile_image_url']) : 'https://www.myzedora.com/img/notset.webp';
                         ?>
                         <div class="bg-gray-800/50 p-6 rounded-lg shadow-lg text-center transform transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl">
-                            <img src="<?php echo htmlspecialchars($gravatar_url); ?>" alt="<?php echo htmlspecialchars($member['full_name']); ?>'s Profile" class="w-24 h-24 rounded-full mx-auto mb-4 border-2 border-sky-500">
+                            <img src="<?php echo $profile_image_src; ?>" alt="<?php echo htmlspecialchars($member['full_name']); ?>'s Profile" class="w-24 h-24 rounded-full mx-auto mb-4 border-2 border-sky-500 object-cover">
                             <h3 class="text-xl font-bold text-white mb-1"><?php echo htmlspecialchars($member['full_name']); ?></h3>
                             <p class="text-sky-400 mb-2">@<?php echo htmlspecialchars($member['username']); ?></p>
                             <?php if (isset($_SESSION['is_admin']) && $_SESSION['is_admin']): ?>
@@ -100,11 +91,13 @@ require_once HEADER;
             <?php endif; ?>
 
             <div class="flex justify-center items-center gap-4 mt-8">
-                <?php for ($i = 1; $i <= $total_pages; $i++): ?>
-                    <a href="?search=<?php echo htmlspecialchars($search_term); ?>&page=<?php echo $i; ?>" class="px-4 py-2 rounded-lg <?php echo $i === $page ? 'bg-sky-500 text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600'; ?>">
-                        <?php echo $i; ?>
-                    </a>
-                <?php endfor; ?>
+                <?php if ($total_pages > 1): ?>
+                    <?php for ($i = 1; $i <= $total_pages; $i++): ?>
+                        <a href="?search=<?php echo htmlspecialchars($search_term); ?>&page=<?php echo $i; ?>" class="px-4 py-2 rounded-lg <?php echo $i === $page ? 'bg-sky-500 text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600'; ?>">
+                            <?php echo $i; ?>
+                        </a>
+                    <?php endfor; ?>
+                <?php endif; ?>
             </div>
         </div>
     </section>
