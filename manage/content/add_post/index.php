@@ -82,7 +82,7 @@ require_once HEADER;
 
                 <?php if ($success_message): ?>
                     <div class="bg-green-500/20 text-green-300 p-4 rounded-lg mb-6">
-                        <p><?php echo $success_message; ?></p>
+                        <p><?php echo $success_message; ?> <a href="<?php echo MANAGE_CONTENT_URL; ?>" class="font-bold underline"><?php echo htmlspecialchars($settings_data['back_to_list']); ?></a></p>
                     </div>
                 <?php endif; ?>
 

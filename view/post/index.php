@@ -113,9 +113,19 @@ require_once HEADER;
                     do_action('after_post_content', $post);
                 ?>
             </div>
-            <div class="text-center mt-16">
-                <a href="<?php echo POSTS_PAGE_URL; ?>" class="text-sky-400 hover:underline">&larr; <?php echo htmlspecialchars($settings_data['back_to_all_posts']); ?></a>
+            
+            <div class="text-center mt-16 flex justify-center items-center gap-6">
+                <a href="<?php echo POSTS_PAGE_URL; ?>" class="text-sky-400 hover:underline">
+                    &larr; <?php echo htmlspecialchars($settings_data['back_to_all_posts']); ?>
+                </a>
+
+                <?php if (isset($_SESSION['user_id']) && $_SESSION['is_admin']): ?>
+                    <a href="<?php echo EDIT_POST_URL_BASE . $post['id']; ?>" class="text-green-400 hover:underline">
+                        Edit Post
+                    </a>
+                <?php endif; ?>
             </div>
+
         </article>
         
         <?php if ($post['comments_enabled']): ?>

@@ -73,6 +73,7 @@ if ($use_pretty_urls) {
     define('MANAGE_PLUGINS_URL', $base_url . '/manage/plugins/');
     define('MEMBERS_LIST_URL', $base_url . '/manage/members/');
     define('ADD_ANNOUNCEMENT_URL', $base_url . '/manage/announcements/new/');
+    define('GALLERY_URL', $base_url . '/manage/gallery/');
     
     define('EDIT_POST_URL_BASE', $base_url . '/manage/content/edit_post/?id=');
     define('EDIT_PROJECT_URL_BASE', $base_url . '/manage/content/edit_project/?id=');
@@ -125,6 +126,7 @@ if ($use_pretty_urls) {
     define('MANAGE_PLUGINS_URL', $base_url . '/manage/plugins/');
     define('MEMBERS_LIST_URL', $base_url . '/manage/members/');
     define('ADD_ANNOUNCEMENT_URL', $base_url . '/manage/announcements/new/');
+    define('GALLERY_URL', $base_url . '/manage/gallery/');
     
     define('EDIT_POST_URL_BASE', $base_url . '/manage/content/edit_post/?id=');
     define('EDIT_PROJECT_URL_BASE', $base_url . '/manage/content/edit_project/?id=');

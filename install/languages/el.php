@@ -45,6 +45,7 @@ return [
         'menu_logout' => 'Αποσύνδεση',
         'menu_statistics' => 'Στατιστικά',
         'menu_send_announcements' => 'Αποστολή Ανακοινώσεων',
+        'menu_site_settings' => 'Ρυθμίσεις Συστήματος',
                 
         'hero_title' => 'Καλώς ήρθατε στο {{site_title}}',
         'hero_subtitle_prefix' => 'Παρουσιάζοντας τις',
@@ -471,6 +472,11 @@ return [
         'announcement_error_no_subscribers' => 'Δεν υπάρχουν χρήστες εγγεγραμμένοι για ανακοινώσεις.',
         'card_announcements_title' => 'Ανακοινώσεις',
         'card_announcements_desc' => 'Δημιουργήστε, διαχειριστείτε και στείλτε ανακοινώσεις μέσω email στους συνδρομητές σας.',
+        'card_gallery_title' => 'Συλλογή Εικόνων',
+        'card_gallery_desc' => 'Μεταφορτώστε, διαχειριστείτε και διαγράψτε εικόνες για χρήση στον ιστότοπό σας.',
+
+        'delete_project_btn' => 'Διαγραφή Έργου',
+        'delete_post_btn' => 'Διαγραφή Δημοσίευσης',
 
         'discover_title' => 'Ανακάλυψη & Διαχείριση Plugins',
         'installed_plugins_title' => 'Εγκατεστημένα Plugins',
@@ -500,6 +506,43 @@ return [
         'settings_break_site' => 'Η αλλαγή αυτού μπορεί να προκαλέσει προβλήματα στον ιστότοπο. Αλλάξτε το μόνο αν μεταφέρετε τον ιστότοπο σε νέο domain.',
         'settings_environment_title' => 'Περιβάλλον',
         'settings_set_development' => 'Ορισμός περιβάλλοντος εφαρμογής σε ανάπτυξη',
+
+        'members_visibility_title' => 'Ορατότητα Σελίδας Λίστας Μελών',
+        'members_visibility_label' => 'Ποιος μπορεί να δει τη Λίστα Μελών;',
+        'members_visibility_option_everyone' => 'Όλοι (συμπεριλαμβανομένων των επισκεπτών)',
+        'members_visibility_option_members' => 'Μέλη (συνδεδεμένοι χρήστες)',
+        'members_visibility_option_admins' => 'Μόνο Διαχειριστές',
+        'members_visibility_hint' => 'Ελέγξτε ποιος έχει πρόσβαση στη λίστα μελών.',
+
+        'edit_profile_upload_new_image_label' => 'Μεταφόρτωση Νέας Εικόνας Προφίλ',
+        'edit_profile_upload_new_image_hint' => 'Επιλέξτε ένα αρχείο JPG, PNG ή GIF.',
+        'edit_profile_upload_or_divider' => 'Ή',
+        'edit_profile_error_upload_dir_creation' => 'Σφάλμα: Δεν ήταν δυνατή η δημιουργία του φακέλου μεταφόρτωσης. Ελέγξτε τα δικαιώματα του διακομιστή.',
+        'edit_profile_error_upload_dir_writable' => 'Σφάλμα: Ο φάκελος μεταφόρτωσης δεν έχει δικαιώματα εγγραφής. Επικοινωνήστε με τον διαχειριστή του ιστότοπου.',
+        'edit_profile_error_fetch_user' => 'Αδυναμία ανάκτησης των δεδομένων χρήστη.',
+
+        'edit_project_title' => 'Επεξεργασία Έργου',
+        'add_project_upload_image_label' => 'Μεταφόρτωση Εικόνας Έργου',
+        'add_project_upload_image_hint' => 'Επιλέξτε αρχείο JPG, PNG ή GIF.',
+        'add_project_upload_or_divider' => 'Ή',
+        'project_error_upload_dir_creation' => 'Σφάλμα: Δεν ήταν δυνατή η δημιουργία του φακέλου μεταφόρτωσης έργου. Ελέγξτε τα δικαιώματα του διακομιστή.',
+        'project_error_upload_dir_writable' => 'Σφάλμα: Ο φάκελος μεταφόρτωσης έργου δεν έχει δικαιώματα εγγραφής. Επικοινωνήστε με τον διαχειριστή του ιστότοπου.',
+
+        'manage_col_action' => 'Ενέργειες',
+
+        'gallery_title' => 'Συλλογή Εικόνων',
+        'gallery_subtitle' => 'Μεταφορτώστε και διαχειριστείτε εικόνες για τον ιστότοπό σας.',
+        'gallery_upload_btn' => 'Μεταφόρτωση Εικόνας',
+        'gallery_upload_hint' => 'Επιτρεπτά αρχεία: JPG, PNG, GIF. Θα μετατραπούν σε WebP.',
+        'gallery_no_images' => 'Δεν έχουν μεταφορτωθεί εικόνες στη συλλογή ακόμα.',
+        'gallery_copy_url' => 'Αντιγραφή URL',
+        'gallery_delete' => 'Διαγραφή',
+        'gallery_delete_confirm' => 'Είστε σίγουροι ότι θέλετε να διαγράψετε οριστικά αυτήν την εικόνα;',
+        'gallery_url_copied' => 'Το URL αντιγράφηκε στο πρόχειρο!',
+        'gallery_upload_success' => 'Η εικόνα μεταφορτώθηκε με επιτυχία!',
+        'gallery_upload_fail' => 'Η μεταφόρτωση της εικόνας απέτυχε.',
+        'gallery_delete_success' => 'Η εικόνα διαγράφηκε με επιτυχία.',
+        'gallery_delete_fail' => 'Αποτυχία διαγραφής της εικόνας.',
 
     ],
 

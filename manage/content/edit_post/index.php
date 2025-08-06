@@ -6,10 +6,13 @@ if (!isset($_SESSION['user_id']) || !$_SESSION['is_admin']) { header("Location: 
 $post_id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 if (!$post_id) { header("Location: " . MANAGE_URL); exit(); }
 
-$errors = [];
-$success_message = '';
+$errors = $_SESSION['errors'] ?? [];
+$success_message = $_SESSION['success_message'] ?? '';
+unset($_SESSION['errors'], $_SESSION['success_message']);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $current_success_message = '';
+
     $title = trim($_POST['title']);
     $slug_input = trim($_POST['slug']);
     $content = trim($_POST['content']);
@@ -35,11 +38,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $published_at = $is_published ? date('Y-m-d H:i:s') : null;
         $stmt = $pdo->prepare("UPDATE posts SET title = ?, slug = ?, content = ?, excerpt = ?, is_published = ?, comments_enabled = ?, published_at = ? WHERE id = ?");
         if ($stmt->execute([$title, $slug, $content, $excerpt, $is_published, $comments_enabled, $published_at, $post_id])) {
-            $success_message = htmlspecialchars($settings_data['post_updated_successfully']);
+            $current_success_message = htmlspecialchars($settings_data['post_updated_successfully']);
         } else {
             $errors[] = htmlspecialchars($settings_data['post_not_updated']);
         }
     }
+    
+    if (!empty($errors)) {
+        $_SESSION['errors'] = $errors;
+    }
+    if (!empty($current_success_message)) {
+        $_SESSION['success_message'] = $current_success_message;
+    }
+    header("Location: " . EDIT_POST_URL_BASE . $post_id);
+    exit();
 }
 
 $stmt = $pdo->prepare("SELECT * FROM posts WHERE id = ?");
@@ -71,8 +83,18 @@ require_once HEADER;
         <div class="container mx-auto px-6 max-w-3xl">
             <div class="bg-gray-800/50 p-8 rounded-lg shadow-lg">
                 <h2 class="text-3xl font-bold text-center mb-6 section-title"><?php echo htmlspecialchars($settings_data['edit_post']); ?></h2>
-                <?php if (!empty($errors)): ?><div class="bg-red-500/20 text-red-300 p-4 rounded-lg mb-6"><?php foreach ($errors as $error): ?><p><?php echo $error; ?></p><?php endforeach; ?></div><?php endif; ?>
-                <?php if ($success_message): ?><div class="bg-green-500/20 text-green-300 p-4 rounded-lg mb-6"><p><?php echo $success_message; ?> <a href="<?php echo MANAGE_URL; ?>" class="font-bold underline"><?php echo htmlspecialchars($settings_data['back_to_list']); ?></a></p></div><?php endif; ?>
+                
+                <?php if (!empty($errors)): ?>
+                    <div class="bg-red-500/20 text-red-300 p-4 rounded-lg mb-6">
+                        <?php foreach ($errors as $error): ?><p><?php echo $error; ?></p><?php endforeach; ?>
+                    </div>
+                <?php endif; ?>
+                <?php if ($success_message): ?>
+                    <div class="bg-green-500/20 text-green-300 p-4 rounded-lg mb-6">
+                        <p><?php echo $success_message; ?> <a href="<?php echo MANAGE_CONTENT_URL; ?>" class="font-bold underline"><?php echo htmlspecialchars($settings_data['back_to_list']); ?></a></p>
+                    </div>
+                <?php endif; ?>
+
                 <form id="post-form" action="<?php echo EDIT_POST_URL_BASE . $post_id; ?>" method="POST">
                     <div class="mb-4"><label for="title" class="block text-gray-300 mb-2"><?php echo htmlspecialchars($settings_data['add_post_title_label']); ?></label><input type="text" name="title" value="<?php echo htmlspecialchars($post['title']); ?>" class="w-full bg-gray-700 border border-gray-600 rounded-lg py-2 px-4 text-white" required></div>
                     <div class="mb-4">
@@ -87,9 +109,9 @@ require_once HEADER;
                                 ? 'tinymce-editor' 
                                 : 'w-full bg-gray-900 border border-gray-600 rounded-lg py-2 px-4 text-white font-mono text-sm';
                         ?>
-                        <textarea id="content" name="content" class="<?php echo $editor_class; ?>" <?php if (!$use_tinymce) echo 'style="height: 350px;"'; ?>><?php echo $post['content']; ?></textarea>
+                        <textarea id="content" name="content" class="<?php echo $editor_class; ?>" <?php if (!$use_tinymce) echo 'style="height: 350px;"'; ?>><?php echo htmlspecialchars($post['content']); ?></textarea>
                     </div>
-                    <div class="mb-6"><label for="excerpt" class="block text-gray-300 mb-2"><?php echo htmlspecialchars($settings_data['add_post_excerpt_label']); ?></label><textarea name="excerpt" rows="3" class="w-full bg-gray-700 border border-gray-600 rounded-lg py-2 px-4 text-white"><?php echo $post['excerpt']; ?></textarea></div>
+                    <div class="mb-6"><label for="excerpt" class="block text-gray-300 mb-2"><?php echo htmlspecialchars($settings_data['add_post_excerpt_label']); ?></label><textarea name="excerpt" rows="3" class="w-full bg-gray-700 border border-gray-600 rounded-lg py-2 px-4 text-white"><?php echo htmlspecialchars($post['excerpt']); ?></textarea></div>
                     
                     <div class="mb-6">
                         <label class="flex items-center text-gray-300">
@@ -101,6 +123,15 @@ require_once HEADER;
                     <div class="mb-6"><label class="flex items-center text-gray-300"><input type="checkbox" name="is_published" value="1" class="form-checkbox h-5 w-5 text-sky-500" <?php if($post['is_published']) echo 'checked'; ?>><span class="ml-2"><?php echo htmlspecialchars($settings_data['add_post_publish_label']); ?></span></label></div>
                     <button type="submit" class="w-full bg-sky-500 text-white font-semibold py-3 rounded-lg hover:bg-sky-600"><?php echo htmlspecialchars($settings_data['edit_profile_save_btn']); ?></button>
                 </form>
+                
+                <div class="mt-6 text-center">
+                    <a href="<?php echo DELETE_ITEM_URL_BASE; ?>?type=post&id=<?php echo $post_id; ?>" 
+                       class="text-red-400 hover:text-red-300 hover:underline"
+                       onclick="return confirm('<?php echo htmlspecialchars($settings_data['delete_confirm_post']); ?>');">
+                        <?php echo htmlspecialchars($settings_data['delete_post_btn']); ?>
+                    </a>
+                </div>
+
             </div>
         </div>
     </section>

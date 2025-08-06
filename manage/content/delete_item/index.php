@@ -6,34 +6,47 @@ if (!isset($_SESSION['user_id']) || !$_SESSION['is_admin']) {
     exit();
 }
 
-$item_type = $_GET['type'] ?? '';
 $item_id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+$item_type = filter_input(INPUT_GET, 'type', FILTER_SANITIZE_STRING);
 
-if (!$item_id || !in_array($item_type, ['post', 'project'])) {
-    header("Location: " . MANAGE_URL);
+if (!$item_id || !$item_type) {
+    header("Location: " . MANAGE_CONTENT_URL);
     exit();
 }
 
-try {
-    $pdo->beginTransaction();
+$table = '';
+$redirect_url = MANAGE_CONTENT_URL;
 
-    if ($item_type === 'post') {
-        $stmt_comments = $pdo->prepare("DELETE FROM comments WHERE post_id = ?");
-        $stmt_comments->execute([$item_id]);
-    }
-    
-    $table_name = ($item_type === 'post') ? 'posts' : 'projects';
-    $stmt_item = $pdo->prepare("DELETE FROM $table_name WHERE id = ?");
-    $stmt_item->execute([$item_id]);
+switch ($item_type) {
+    case 'post':
+        $table = 'posts';
+        break;
+    case 'project':
+        $stmt_get_image = $pdo->prepare("SELECT image_url FROM projects WHERE id = ?");
+        $stmt_get_image->execute([$item_id]);
+        $image_url = $stmt_get_image->fetchColumn();
 
-    $pdo->commit();
+        if ($image_url && strpos($image_url, '/img/projects/') !== false) {
+            $filename_to_delete = basename($image_url);
+            $file_path_to_delete = dirname(__DIR__, 3) . '/img/projects/' . $filename_to_delete;
+            if (file_exists($file_path_to_delete)) {
+                @unlink($file_path_to_delete);
+            }
+        }
+        $table = 'projects';
+        break;
+    default:
+        header("Location: " . MANAGE_CONTENT_URL);
+        exit();
+}
 
-} catch (PDOException $e) {
-    if ($pdo->inTransaction()) {
-        $pdo->rollBack();
+if ($table) {
+    try {
+        $stmt = $pdo->prepare("DELETE FROM $table WHERE id = ?");
+        $stmt->execute([$item_id]);
+    } catch (PDOException $e) {
     }
 }
 
-header("Location: " . MANAGE_URL);
+header("Location: " . $redirect_url);
 exit();
-?>

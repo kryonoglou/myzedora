@@ -4,6 +4,8 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
 function loadEnv($path) {
     if (!file_exists($path)) {
         return;

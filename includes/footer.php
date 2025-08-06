@@ -101,7 +101,6 @@ if (!defined('MYZEDORA_URL')) {
             }
         }
         
-        // New logic to track anchor link clicks
         document.querySelectorAll('a[href^="#"]').forEach(link => {
             link.addEventListener('click', (event) => {
                 const anchor = link.getAttribute('href').substring(1);

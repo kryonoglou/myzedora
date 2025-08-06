@@ -45,6 +45,7 @@ return [
         'menu_logout' => 'Logout',
         'menu_statistics' => 'Statistics',
         'menu_send_announcements' => 'Send Announcements',
+        'menu_site_settings' => 'Site Settings',
                 
         'hero_title' => 'Welcome to {{site_title}}',
         'hero_subtitle_prefix' => 'Showcasing My',
@@ -471,6 +472,11 @@ return [
         'announcement_error_no_subscribers' => 'There are no users subscribed to announcements.',
         'card_announcements_title' => 'Announcements',
         'card_announcements_desc' => 'Create, manage, and send email announcements to your subscribers.',
+        'card_gallery_title' => 'Image Gallery',
+        'card_gallery_desc' => 'Upload, manage, and delete images for use across your website.',
+
+        'delete_project_btn' => 'Delete Project',
+        'delete_post_btn' => 'Delete Post',
 
         'discover_title' => 'Discover & Manage Plugins',
         'installed_plugins_title' => 'Installed Plugins',
@@ -507,6 +513,36 @@ return [
         'members_visibility_option_members' => 'Members (logged-in users)',
         'members_visibility_option_admins' => 'Admins Only',
         'members_visibility_hint' => 'Control who has access to view the members list.',
+
+        'edit_profile_upload_new_image_label' => 'Upload New Profile Image',
+        'edit_profile_upload_new_image_hint' => 'Select a JPG, PNG, or GIF file.',
+        'edit_profile_upload_or_divider' => 'OR',
+        'edit_profile_error_upload_dir_creation' => 'Error: Could not create the upload directory. Please check server permissions.',
+        'edit_profile_error_upload_dir_writable' => 'Error: The upload directory is not writable. Please contact the site administrator.',
+        'edit_profile_error_fetch_user' => 'Could not fetch user data.',
+
+        'edit_project_title' => 'Edit Project',
+        'add_project_upload_image_label' => 'Upload Project Image',
+        'add_project_upload_image_hint' => 'Select a JPG, PNG, or GIF file.',
+        'add_project_upload_or_divider' => 'OR',
+        'project_error_upload_dir_creation' => 'Error: Could not create the project upload directory. Please check server permissions.',
+        'project_error_upload_dir_writable' => 'Error: The project upload directory is not writable. Please contact the site administrator.',
+
+        'manage_col_action' => 'Actions',
+
+        'gallery_title' => 'Image Gallery',
+        'gallery_subtitle' => 'Upload and manage images for your website.',
+        'gallery_upload_btn' => 'Upload Image',
+        'gallery_upload_hint' => 'Allowed files: JPG, PNG, GIF. They will be converted to WebP.',
+        'gallery_no_images' => 'No images have been uploaded to the gallery yet.',
+        'gallery_copy_url' => 'Copy URL',
+        'gallery_delete' => 'Delete',
+        'gallery_delete_confirm' => 'Are you sure you want to permanently delete this image?',
+        'gallery_url_copied' => 'URL copied to clipboard!',
+        'gallery_upload_success' => 'Image uploaded successfully!',
+        'gallery_upload_fail' => 'Image upload failed.',
+        'gallery_delete_success' => 'Image deleted successfully.',
+        'gallery_delete_fail' => 'Failed to delete image.',
 
     ],
 

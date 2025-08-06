@@ -6,6 +6,7 @@ if (!file_exists(__DIR__ . '/.env')) {
 }
 
 require_once __DIR__ . '/includes/map.php';
+require_once __DIR__ . '/includes/repair.php';
 
 function truncate_text($text, $length) {
     if (strlen($text) > $length) {

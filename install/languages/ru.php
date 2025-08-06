@@ -45,6 +45,7 @@ return [
         'menu_logout' => 'Выход',
         'menu_statistics' => 'Статистика',
         'menu_send_announcements' => 'Отправить Объявления',
+        'menu_site_settings' => 'Настройки сайта',
                 
         'hero_title' => 'Добро пожаловать в {{site_title}}',
         'hero_subtitle_prefix' => 'Демонстрирую свои',
@@ -471,6 +472,11 @@ return [
         'announcement_error_no_subscribers' => 'Нет пользователей, подписанных на объявления.',
         'card_announcements_title' => 'Объявления',
         'card_announcements_desc' => 'Создавайте, управляйте и отправляйте объявления по электронной почте вашим подписчикам.',
+        'card_gallery_title' => 'Галерея изображений',
+        'card_gallery_desc' => 'Загружайте, управляйте и удаляйте изображения для использования на вашем сайте.',
+
+        'delete_project_btn' => 'Удалить проект',
+        'delete_post_btn' => 'Удалить публикацию',
 
         'discover_title' => 'Поиск и управление плагинами',
         'installed_plugins_title' => 'Установленные плагины',
@@ -500,6 +506,43 @@ return [
         'settings_break_site' => 'Изменение этого параметра может нарушить работу сайта. Меняйте только при переносе сайта на другой домен.',
         'settings_environment_title' => 'Окружение',
         'settings_set_development' => 'Установить окружение приложения в режим разработки',
+
+        'members_visibility_title' => 'Видимость страницы списка участников',
+        'members_visibility_label' => 'Кто может видеть список участников?',
+        'members_visibility_option_everyone' => 'Все (включая гостей)',
+        'members_visibility_option_members' => 'Участники (вошедшие в систему)',
+        'members_visibility_option_admins' => 'Только администраторы',
+        'members_visibility_hint' => 'Управляйте доступом к просмотру списка участников.',
+
+        'edit_profile_upload_new_image_label' => 'Загрузить новое изображение профиля',
+        'edit_profile_upload_new_image_hint' => 'Выберите файл JPG, PNG или GIF.',
+        'edit_profile_upload_or_divider' => 'ИЛИ',
+        'edit_profile_error_upload_dir_creation' => 'Ошибка: не удалось создать каталог для загрузки. Пожалуйста, проверьте разрешения сервера.',
+        'edit_profile_error_upload_dir_writable' => 'Ошибка: каталог для загрузки недоступен для записи. Свяжитесь с администратором сайта.',
+        'edit_profile_error_fetch_user' => 'Не удалось получить данные пользователя.',
+
+        'edit_project_title' => 'Редактировать проект',
+        'add_project_upload_image_label' => 'Загрузить изображение проекта',
+        'add_project_upload_image_hint' => 'Выберите файл JPG, PNG или GIF',
+        'add_project_upload_or_divider' => 'ИЛИ',
+        'project_error_upload_dir_creation' => 'Ошибка: не удалось создать каталог загрузки проекта. Пожалуйста, проверьте разрешения сервера.',
+        'project_error_upload_dir_writable' => 'Ошибка: каталог загрузки проекта недоступен для записи. Свяжитесь с администратором сайта.',
+
+        'manage_col_action' => 'Действия',
+
+        'gallery_title' => 'Галерея изображений',
+        'gallery_subtitle' => 'Загружайте и управляйте изображениями для вашего сайта.',
+        'gallery_upload_btn' => 'Загрузить изображение',
+        'gallery_upload_hint' => 'Допустимые файлы: JPG, PNG, GIF. Они будут преобразованы в WebP.',
+        'gallery_no_images' => 'В галерею ещё не загружены изображения.',
+        'gallery_copy_url' => 'Копировать URL',
+        'gallery_delete' => 'Удалить',
+        'gallery_delete_confirm' => 'Вы уверены, что хотите навсегда удалить это изображение?',
+        'gallery_url_copied' => 'URL скопирован в буфер обмена!',
+        'gallery_upload_success' => 'Изображение успешно загружено!',
+        'gallery_upload_fail' => 'Не удалось загрузить изображение.',
+        'gallery_delete_success' => 'Изображение успешно удалено.',
+        'gallery_delete_fail' => 'Не удалось удалить изображение.',
 
     ],
 
