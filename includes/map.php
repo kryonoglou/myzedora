@@ -42,8 +42,8 @@ if ($use_pretty_urls) {
     define('FORGOT_PASSWORD_URL', $base_url . '/forgot-password/');
 
     define('PROFILE_URL_BASE', $base_url . '/@');
-    define('PROJECT_URL_BASE', $base_url . '/view/project/?slug=');
-    define('POST_URL_BASE', $base_url . '/view/post/?slug=');
+    define('PROJECT_URL_BASE', $base_url . '/project/');
+    define('POST_URL_BASE', $base_url . '/post/');
     define('PROJECTS_PAGE_URL', $base_url . '/view/projects/');
     define('POSTS_PAGE_URL', $base_url . '/view/posts/');
     define('MEMBERS_PLIST_URL', $base_url . '/view/members/');
