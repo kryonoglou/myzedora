@@ -3,7 +3,6 @@
     <div class="space-y-4">
         <div>
             <label class="flex items-center text-gray-300">
-                <input type="hidden" name="settings[enable_tinymce]" value="0">
                 <input type="checkbox" name="settings[enable_tinymce]" value="1" x-model="enabled" <?php if (($raw_settings_data['enable_tinymce'] ?? '0') == '1') echo 'checked'; ?> class="form-checkbox h-5 w-5 text-sky-500 bg-gray-700 border-gray-600 rounded focus:ring-sky-500">
                 <span class="ml-2 font-semibold"><?php echo htmlspecialchars($settings_data['settings_enable_tinymce_label']); ?></span>
             </label>
