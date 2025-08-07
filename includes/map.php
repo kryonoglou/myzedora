@@ -44,9 +44,9 @@ if ($use_pretty_urls) {
     define('PROFILE_URL_BASE', $base_url . '/@');
     define('PROJECT_URL_BASE', $base_url . '/project/');
     define('POST_URL_BASE', $base_url . '/post/');
-    define('PROJECTS_PAGE_URL', $base_url . '/view/projects/');
-    define('POSTS_PAGE_URL', $base_url . '/view/posts/');
-    define('MEMBERS_PLIST_URL', $base_url . '/view/members/');
+    define('PROJECTS_PAGE_URL', $base_url . '/projects/');
+    define('POSTS_PAGE_URL', $base_url . '/posts/');
+    define('MEMBERS_PLIST_URL', $base_url . '/members/');
 
     //Main
     define('HOME_URL', $base_url . '/');
