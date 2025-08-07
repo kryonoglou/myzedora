@@ -106,7 +106,7 @@ require_once HEADER;
                                                     $confirm_message = ($item['type'] === 'post') ? $settings_data['delete_confirm_post'] : $settings_data['delete_confirm_project'];
 
                                                     if ($use_pretty_urls) {
-                                                        $delete_url = DELETE_ITEM_URL_BASE . $item['type'] . '/' . $item['id'];
+                                                        $delete_url = DELETE_ITEM_URL_BASE . '?type=' . $item['type'] . '&id=' . $item['id'];
                                                     } else {
                                                         $delete_url = DELETE_ITEM_URL_BASE . '?type=' . $item['type'] . '&id=' . $item['id'];
                                                     }
