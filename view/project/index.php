@@ -45,7 +45,7 @@ require_once HEADER;
             <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
                 <div class="md:col-span-2 text-gray-300 leading-relaxed prose">
                     <h2 class="text-2xl font-bold text-white mb-4"><?php echo htmlspecialchars($settings_data['about_this_project']); ?></h2>
-                    <?php echo nl2br(htmlspecialchars($project['description'])); ?>
+                    <?php echo $project['description']; ?>
                 </div>
                 <aside>
                     <div class="bg-gray-800/50 p-6 rounded-lg">
