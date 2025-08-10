@@ -23,13 +23,11 @@ return [
     'admin_pass_label' => 'Admin Password',
     'install_button' => 'Install myZedora CMS',
     'success_title' => 'Installation Complete!',
-    'success_message' => 'myZedora CMS has been successfully installed. For security, the installation directory has been locked. You can now explore your new system.',
+    'success_message' => 'myZedora CMS (v1.1-beta) has been successfully installed. For security, the installation directory has been locked. You can now explore your new system.',
     'visit_site_button' => 'Launch myZedora CMS',
 
     'site_settings' => [
         'site_title' => 'myZedora',
-
-        'site_language' => 'en',
 
         'enable_tinymce' => '0',
         'tinymce_api_key' => '',
@@ -265,8 +263,6 @@ return [
         'members_save_btn' => 'Save Role',
         'members_delete_btn' => 'Delete User',
         'members_no_members_found' => 'No members found matching your criteria.',
-        'manage_all_registered_users' => 'Manage all registered users in the system.',
-        'current_user_members' => 'Current User',
 
         'settings_url_structure_title' => 'URL Structure Settings',
         'settings_url_classic' => 'Classic (e.g., /post/index.php?slug=my-post)',

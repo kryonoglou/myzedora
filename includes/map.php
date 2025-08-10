@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__ . '/config.php';
+require_once __DIR__ . '/database.php';
 require_once __DIR__ . '/version.php';
 
 $settings_stmt = $pdo->query("SELECT setting_key, setting_value FROM site_settings");

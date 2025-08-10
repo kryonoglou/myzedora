@@ -76,62 +76,94 @@ require_once HEADER;
     }
     window.scrollTo(0, 0);
 </script>
-<main class="pt-32 pb-20">
+<main class="pt-24 md:pt-32 pb-20 bg-slate-900 text-slate-300">
     <section id="member-list" data-aos="fade-up">
-        <div class="container mx-auto px-6 max-w-5xl">
-            <h1 class="text-4xl font-bold text-center mb-10 section-title"><?php echo htmlspecialchars($settings_data['members_list_title']); ?></h1>
-
-            <form method="GET" action="<?php echo MEMBERS_LIST_URL; ?>" class="mb-8 max-w-lg mx-auto">
-                <div class="relative">
-                    <input type="text" name="search" value="<?php echo htmlspecialchars($search_term); ?>" placeholder="<?php echo htmlspecialchars($settings_data['members_search_placeholder']); ?>" class="w-full bg-gray-700 border border-gray-600 rounded-lg py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-sky-500">
-                    <button type="submit" class="absolute right-2 top-1/2 -translate-y-1/2 bg-sky-500 text-white px-4 py-1.5 rounded-md hover:bg-sky-600"><?php echo htmlspecialchars($settings_data['members_search_btn']); ?></button>
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+            
+            <div class="max-w-3xl mx-auto mb-6 space-y-4">
+                <?php if ($success_message): ?>
+                <div class="bg-green-500/10 border border-green-500/30 text-green-300 px-4 py-3 rounded-lg relative flex items-center gap-4" role="alert">
+                    <svg class="w-6 h-6 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <span class="block sm:inline"><?php echo $success_message; ?></span>
                 </div>
-            </form>
+                <?php endif; ?>
+                <?php if (!empty($errors)): ?>
+                <div class="bg-red-500/10 border border-red-500/30 text-red-300 px-4 py-3 rounded-lg relative flex items-center gap-4" role="alert">
+                    <svg class="w-6 h-6 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <div><?php foreach($errors as $error) echo "<p>$error</p>"; ?></div>
+                </div>
+                <?php endif; ?>
+            </div>
 
-            <?php if ($success_message): ?><div class="bg-green-500/20 text-green-300 p-4 rounded-lg mb-6 max-w-lg mx-auto text-center"><p><?php echo $success_message; ?></p></div><?php endif; ?>
-            <?php if (!empty($errors)): ?><div class="bg-red-500/20 text-red-300 p-4 rounded-lg mb-6 max-w-lg mx-auto text-center"><?php foreach($errors as $error) echo "<p>$error</p>"; ?></div><?php endif; ?>
+            <div class="bg-slate-800/50 border border-slate-700 rounded-xl shadow-lg overflow-hidden">
+                <div class="p-4 sm:p-6 border-b border-slate-700 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <div>
+                        <h1 class="text-xl font-bold text-white section-title"><?php echo htmlspecialchars($settings_data['members_list_title']); ?></h1>
+                        <p class="text-sm text-slate-400 mt-1"><?php echo htmlspecialchars($settings_data['manage_all_registered_users']); ?></p>
+                    </div>
+                    <form method="GET" action="<?php echo MEMBERS_LIST_URL; ?>" class="w-full sm:w-auto">
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+                                <svg class="w-5 h-5 text-slate-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                                </svg>
+                            </span>
+                            <input type="text" name="search" value="<?php echo htmlspecialchars($search_term); ?>" placeholder="<?php echo htmlspecialchars($settings_data['members_search_placeholder']); ?>" class="w-full sm:w-64 bg-slate-900/50 border border-slate-600 rounded-lg py-2 pl-10 pr-4 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500 transition">
+                        </div>
+                    </form>
+                </div>
 
-            <div class="bg-gray-800/50 rounded-lg shadow-lg overflow-hidden">
-                <div class="overflow-x-auto">
+                <div class="md:overflow-x-auto">
                     <table class="w-full text-left">
-                        <thead class="bg-gray-900/50">
+                        <thead class="hidden md:table-header-group bg-slate-800">
                             <tr>
-                                <th class="p-4 font-semibold text-white"><?php echo htmlspecialchars($settings_data['members_col_full_name']); ?></th>
-                                <th class="p-4 font-semibold text-white"><?php echo htmlspecialchars($settings_data['members_col_username']); ?></th>
-                                <th class="p-4 font-semibold text-white hidden md:table-cell"><?php echo htmlspecialchars($settings_data['members_col_email']); ?></th>
-                                <th class="p-4 font-semibold text-white"><?php echo htmlspecialchars($settings_data['members_col_role']); ?></th>
-                                <th class="p-4 font-semibold text-white"><?php echo htmlspecialchars($settings_data['members_col_action']); ?></th>
+                                <th scope="col" class="p-4 text-xs font-semibold text-slate-400 uppercase tracking-wider"><?php echo htmlspecialchars($settings_data['members_col_full_name']); ?></th>
+                                <th scope="col" class="p-4 text-xs font-semibold text-slate-400 uppercase tracking-wider"><?php echo htmlspecialchars($settings_data['members_col_email']); ?></th>
+                                <th scope="col" class="p-4 text-xs font-semibold text-slate-400 uppercase tracking-wider"><?php echo htmlspecialchars($settings_data['members_col_role']); ?></th>
+                                <th scope="col" class="p-4 text-xs font-semibold text-slate-400 uppercase tracking-wider text-right"><?php echo htmlspecialchars($settings_data['members_col_action']); ?></th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-gray-700">
+                        <tbody class="block md:table-row-group divide-y divide-slate-700/50 md:divide-y-0">
                             <?php if (empty($members)): ?>
-                                <tr><td colspan="5" class="p-4 text-center text-gray-400"><?php echo htmlspecialchars($settings_data['members_no_members_found']); ?></td></tr>
+                                <tr class="block md:table-row"><td colspan="4" class="block md:table-cell p-6 text-center text-slate-400"><?php echo htmlspecialchars($settings_data['members_no_members_found']); ?></td></tr>
                             <?php else: ?>
                                 <?php foreach ($members as $member): ?>
-                                    <tr>
-                                        <td class="p-4 text-white"><?php echo htmlspecialchars($member['full_name']); ?></td>
-                                        <td class="p-4 text-gray-300">@<?php echo htmlspecialchars($member['username']); ?></td>
-                                        <td class="p-4 text-gray-300 hidden md:table-cell"><?php echo htmlspecialchars($member['email']); ?></td>
-                                        <td class="p-4 text-gray-300">
-                                            <span class="font-semibold <?php echo $member['is_admin'] ? 'text-sky-400' : 'text-gray-400'; ?>">
+                                    <tr class="block p-4 md:p-0 md:table-row hover:bg-slate-800/50 transition-colors duration-150">
+                                        <td class="flex justify-between items-center py-2 md:table-cell md:p-4 md:whitespace-nowrap" data-label="<?php echo htmlspecialchars($settings_data['members_col_full_name']); ?>">
+                                            <span class="md:hidden text-xs font-semibold text-slate-400 uppercase tracking-wider"><?php echo htmlspecialchars($settings_data['members_col_full_name']); ?></span>
+                                            <div>
+                                                <div class="font-medium text-white text-right md:text-left"><?php echo htmlspecialchars($member['full_name']); ?></div>
+                                                <div class="text-sm text-slate-400 text-right md:text-left">@<?php echo htmlspecialchars($member['username']); ?></div>
+                                            </div>
+                                        </td>
+                                        <td class="flex justify-between items-center py-2 md:table-cell md:p-4 md:whitespace-nowrap" data-label="<?php echo htmlspecialchars($settings_data['members_col_email']); ?>">
+                                            <span class="md:hidden text-xs font-semibold text-slate-400 uppercase tracking-wider"><?php echo htmlspecialchars($settings_data['members_col_email']); ?></span>
+                                            <span class="text-right md:text-left"><?php echo htmlspecialchars($member['email']); ?></span>
+                                        </td>
+                                        <td class="flex justify-between items-center py-2 md:table-cell md:p-4 md:whitespace-nowrap" data-label="<?php echo htmlspecialchars($settings_data['members_col_role']); ?>">
+                                            <span class="md:hidden text-xs font-semibold text-slate-400 uppercase tracking-wider"><?php echo htmlspecialchars($settings_data['members_col_role']); ?></span>
+                                            <span class="px-2.5 py-1 text-xs font-semibold rounded-full <?php echo $member['is_admin'] ? 'bg-sky-500/20 text-sky-300' : 'bg-slate-600/50 text-slate-300'; ?>">
                                                 <?php echo $member['is_admin'] ? htmlspecialchars($settings_data['role_administrator']) : htmlspecialchars($settings_data['role_member']); ?>
                                             </span>
                                         </td>
-                                        <td class="p-4">
+                                        <td class="flex justify-between items-start pt-4 pb-2 md:table-cell md:p-4 md:whitespace-nowrap md:text-right" data-label="Actions">
+                                            <span class="md:hidden text-xs font-semibold text-slate-400 uppercase tracking-wider"><?php echo htmlspecialchars($settings_data['members_col_action']); ?></span>
                                             <?php if ($member['id'] !== $_SESSION['user_id']): ?>
-                                            <div class="flex items-center gap-2">
-                                                <form method="POST" action="<?php echo MEMBERS_LIST_URL; ?>?search=<?php echo htmlspecialchars($search_term); ?>&page=<?php echo $page; ?>" class="flex items-center gap-2">
-                                                    <input type="hidden" name="user_id" value="<?php echo $member['id']; ?>">
-                                                    <select name="role" class="bg-gray-700 border-gray-600 text-white text-sm rounded-md focus:ring-sky-500 focus:border-sky-500">
-                                                        <option value="0" <?php if (!$member['is_admin']) echo 'selected'; ?>><?php echo htmlspecialchars($settings_data['role_member']); ?></option>
-                                                        <option value="1" <?php if ($member['is_admin']) echo 'selected'; ?>><?php echo htmlspecialchars($settings_data['role_administrator']); ?></option>
-                                                    </select>
-                                                    <button type="submit" name="change_role" class="bg-green-600 text-white px-3 py-1 text-sm rounded-md hover:bg-green-700"><?php echo htmlspecialchars($settings_data['members_save_btn']); ?></button>
-                                                </form>
-                                                <a href="<?php echo DELETE_USER_URL_BASE . $member['id']; ?>" 
-                                                   onclick="return confirm('Are you sure you want to delete this user? This will also delete all their posts and cannot be undone.');" 
-                                                   class="bg-red-600 text-white px-3 py-1 text-sm rounded-md hover:bg-red-700"><?php echo htmlspecialchars($settings_data['members_delete_btn']); ?></a>
-                                            </div>
+                                            <form method="POST" action="<?php echo MEMBERS_LIST_URL; ?>?search=<?php echo htmlspecialchars($search_term); ?>&page=<?php echo $page; ?>" class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 w-full sm:w-auto sm:inline-flex">
+                                                <input type="hidden" name="user_id" value="<?php echo $member['id']; ?>">
+                                                <select name="role" class="bg-slate-700 border-slate-600 text-white text-sm rounded-md focus:ring-sky-500 focus:border-sky-500 py-1.5 h-full w-full">
+                                                    <option value="0" <?php if (!$member['is_admin']) echo 'selected'; ?>><?php echo htmlspecialchars($settings_data['role_member']); ?></option>
+                                                    <option value="1" <?php if ($member['is_admin']) echo 'selected'; ?>><?php echo htmlspecialchars($settings_data['role_administrator']); ?></option>
+                                                </select>
+                                                <div class="flex gap-2 mt-2 sm:mt-0">
+                                                    <button type="submit" name="change_role" class="flex-1 bg-green-600 text-white px-3 py-1.5 text-sm font-semibold rounded-md hover:bg-green-700 transition-colors disabled:opacity-50"><?php echo htmlspecialchars($settings_data['members_save_btn']); ?></button>
+                                                    <a href="<?php echo DELETE_USER_URL_BASE . $member['id']; ?>"  
+                                                       onclick="return confirm('Are you sure you want to delete this user? This will also delete all their posts and cannot be undone.');"  
+                                                       class="flex-1 text-center bg-red-600 text-white px-3 py-1.5 text-sm font-semibold rounded-md hover:bg-red-700 transition-colors"><?php echo htmlspecialchars($settings_data['members_delete_btn']); ?></a>
+                                                </div>
+                                            </form>
+                                            <?php else: ?>
+                                                <span class="text-sm text-slate-500 italic text-right w-full"><?php echo htmlspecialchars($settings_data['current_user_members']); ?></span>
                                             <?php endif; ?>
                                         </td>
                                     </tr>
@@ -140,14 +172,32 @@ require_once HEADER;
                         </tbody>
                     </table>
                 </div>
-            </div>
+                 <?php if ($total_pages > 1): ?>
+                <div class="p-4 border-t border-slate-700">
+                    <nav class="flex items-center justify-center" aria-label="Pagination">
+                         <div class="flex justify-center flex-wrap gap-2">
+                             <a href="<?php echo $page > 1 ? '?search=' . htmlspecialchars($search_term) . '&page=' . ($page - 1) : '#'; ?>" 
+                                class="inline-flex items-center justify-center px-4 py-2 text-sm font-semibold rounded-md text-slate-300 bg-slate-800 ring-1 ring-inset ring-slate-700 hover:bg-slate-700 focus:z-20 focus:outline-offset-0 <?php echo $page <= 1 ? 'opacity-50 cursor-not-allowed' : ''; ?>">
+                                 <svg class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z" clip-rule="evenodd" /></svg>
+                                 Prev
+                             </a>
+                             
+                             <?php for ($i = 1; $i <= $total_pages; $i++): ?>
+                             <a href="?search=<?php echo htmlspecialchars($search_term); ?>&page=<?php echo $i; ?>" 
+                                class="inline-flex items-center justify-center px-4 py-2 text-sm font-semibold rounded-md <?php echo $i === $page ? 'z-10 bg-sky-600 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600' : 'text-slate-300 bg-slate-800 ring-1 ring-inset ring-slate-700 hover:bg-slate-700 focus:outline-offset-0'; ?>">
+                                 <?php echo $i; ?>
+                             </a>
+                             <?php endfor; ?>
 
-            <div class="flex justify-center items-center gap-4 mt-8">
-                <?php for ($i = 1; $i <= $total_pages; $i++): ?>
-                    <a href="?search=<?php echo htmlspecialchars($search_term); ?>&page=<?php echo $i; ?>" class="px-4 py-2 rounded-lg <?php echo $i === $page ? 'bg-sky-500 text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600'; ?>">
-                        <?php echo $i; ?>
-                    </a>
-                <?php endfor; ?>
+                             <a href="<?php echo $page < $total_pages ? '?search=' . htmlspecialchars($search_term) . '&page=' . ($page + 1) : '#'; ?>" 
+                                class="inline-flex items-center justify-center px-4 py-2 text-sm font-semibold rounded-md text-slate-300 bg-slate-800 ring-1 ring-inset ring-slate-700 hover:bg-slate-700 focus:z-20 focus:outline-offset-0 <?php echo $page >= $total_pages ? 'opacity-50 cursor-not-allowed' : ''; ?>">
+                                 Next
+                                 <svg class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" /></svg>
+                             </a>
+                         </div>
+                    </nav>
+                </div>
+                <?php endif; ?>
             </div>
         </div>
     </section>

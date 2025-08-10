@@ -1,5 +1,5 @@
 <?php
 
-define('MYZEDORA_VERSION', '1.4.2');
+define('MYZEDORA_VERSION', '1.5.0');
 
 ?>

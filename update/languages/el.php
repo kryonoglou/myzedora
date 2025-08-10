@@ -23,12 +23,10 @@ return [
     'admin_pass_label' => 'Κωδικός Πρόσβασης Διαχειριστή',
     'install_button' => 'Εγκατάσταση myZedora CMS',
     'success_title' => 'Η Εγκατάσταση Ολοκληρώθηκε!',
-    'success_message' => 'Το myZedora CMS εγκαταστάθηκε επιτυχώς. Για λόγους ασφαλείας, ο φάκελος εγκατάστασης έχει κλειδωθεί. Μπορείτε τώρα να εξερευνήσετε το νέο σας σύστημα.',
+    'success_message' => 'Το myZedora CMS (v1.1-beta) εγκαταστάθηκε επιτυχώς. Για λόγους ασφαλείας, ο φάκελος εγκατάστασης έχει κλειδωθεί. Μπορείτε τώρα να εξερευνήσετε το νέο σας σύστημα.',
     'visit_site_button' => 'Εκκίνηση myZedora CMS',
 
     'site_settings' => [
-        'site_language' => 'el',
-        
         'site_title' => 'myZedora',
 
         'enable_tinymce' => '0',
@@ -265,8 +263,6 @@ return [
         'members_save_btn' => 'Αποθήκευση Ρόλου',
         'members_delete_btn' => 'Διαγραφή Χρήστη',
         'members_no_members_found' => 'Δεν βρέθηκαν μέλη που να ταιριάζουν με τα κριτήριά σας.',
-        'manage_all_registered_users' => 'Διαχειριστείτε όλους τους εγγεγραμμένους χρήστες στο σύστημα.',
-        'current_user_members' => 'Τρέχων Χρήστης',
 
         'settings_url_structure_title' => 'Ρυθμίσεις Δομής URL',
         'settings_url_classic' => 'Κλασικό (π.χ. /post/index.php?slug=my-post)',

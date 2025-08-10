@@ -101,6 +101,7 @@ CREATE TABLE `site_settings` (
 
 INSERT INTO `site_settings` (`setting_key`, `setting_value`) VALUES
 ('enable_url_rewriting', '0'),
+('site_language', 'en'),
 ('favicon_url', '/favicon.ico'),
 ('contact_email', 'hello@example.com'),
 ('smtp_host', 'smtp.example.com'),

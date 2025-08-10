@@ -74,7 +74,7 @@ if (is_dir($plugins_path)) {
     <section id="plugin-gallery" data-aos="fade-up">
         <div class="container mx-auto px-6 max-w-6xl">
             <h2 class="text-3xl font-bold text-center mb-4 section-title"><?php echo htmlspecialchars($settings_data['installed_plugins_title']); ?></h2>
-            <p class="text-center text-gray-400 mb-10">Manage the plugins you have installed on your website.</p>
+            <p class="text-center text-gray-400 mb-10"><?php echo htmlspecialchars($settings_data['manage_installed']); ?></p>
 
             <?php if ($feedback_message): ?>
                 <div class="<?php echo $feedback_type === 'success' ? 'bg-green-500/20 text-green-300' : 'bg-red-500/20 text-red-300'; ?> p-4 rounded-lg mb-6">

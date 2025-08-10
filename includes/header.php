@@ -110,7 +110,6 @@ $active_style = $active_style_stmt->fetchColumn();
                     if (function_exists('has_action') && has_action('render_desktop_menu')) {
                         do_action('render_desktop_menu');
                     } else {
-
                         echo '<a href="' . HOME_URL . '#about" class="nav-link text-gray-300">' . htmlspecialchars($settings_data['menu_about']) . '</a>';
                         echo '<a href="' . HOME_URL . '#portfolio" class="nav-link text-gray-300">' . htmlspecialchars($settings_data['menu_portfolio']) . '</a>';
                         echo '<a href="' . HOME_URL . '#blog" class="nav-link text-gray-300">' . htmlspecialchars($settings_data['menu_blog']) . '</a>';
@@ -126,18 +125,21 @@ $active_style = $active_style_stmt->fetchColumn();
                                 $manifest_data = json_decode(file_get_contents($manifest_file), true);
                                 if (isset($manifest_data['pages']) && is_array($manifest_data['pages'])) {
                                     foreach ($manifest_data['pages'] as $plugin_page) {
+                                        
+                                        $is_admin_page = $plugin_page['admin_only'] ?? false;
+                                        $show_in_main_menu = $plugin_page['show_in_menu'] ?? false;
 
-                                        if (isset($plugin_page['admin_only']) && $plugin_page['admin_only']) {
-                                            continue;
-                                        }
-                                        if (isset($plugin_page['menu_title'], $plugin_page['slug'])) {
+                                        if ($show_in_main_menu && !$is_admin_page) {
+                                            $menu_text = $plugin_page['menu_title'] ?? ($settings_data[$plugin_page['menu_title_lang_key']] ?? 'Link');
+
                                             if ($use_pretty_urls) {
                                                 $page_url = HOME_URL . '' . $plugin_folder_name . '/' . $plugin_page['slug'];
                                             } else {
                                                 $page_url = HOME_URL . 'view/page.php/' . $plugin_folder_name . '/' . $plugin_page['slug'];
                                             }
-                                            echo '<a href="' . htmlspecialchars($page_url) . '" class="nav-link text-gray-300">' . htmlspecialchars($plugin_page['menu_title']) . '</a>';
+                                            echo '<a href="' . htmlspecialchars($page_url) . '" class="nav-link text-gray-300">' . htmlspecialchars($menu_text) . '</a>';
                                         }
+
                                     }
                                 }
                             }
@@ -159,7 +161,6 @@ $active_style = $active_style_stmt->fetchColumn();
                             </button>
                             <div x-show="open" @click.away="open = false" class="absolute right-0 mt-2 w-48 bg-gray-800 rounded-md shadow-lg py-1 z-20" style="display: none;">
                                 <a href="<?php echo MANAGE_URL; ?>" class="block px-4 py-2 text-sm text-gray-300 hover:bg-sky-500 hover:text-white"><?php echo htmlspecialchars($settings_data['menu_admin_dashboard']); ?></a>
-                                <a href="<?php echo MANAGE_PLUGINS_URL; ?>" class="block px-4 py-2 text-sm text-gray-300 hover:bg-sky-500 hover:text-white"><?php echo htmlspecialchars($settings_data['menu_plugin_settings']); ?></a>
                                 <?php
 
                                     $plugin_manifests = glob(PROJECT_ROOT . '/ext/*/plugin.json');
@@ -212,7 +213,6 @@ $active_style = $active_style_stmt->fetchColumn();
             if (function_exists('has_action') && has_action('render_mobile_menu')) {
                 do_action('render_mobile_menu');
             } else {
-
                 echo '<a href="' . HOME_URL . '#about" class="block py-2 text-gray-300">' . htmlspecialchars($settings_data['menu_about']) . '</a>';
                 echo '<a href="' . HOME_URL . '#portfolio" class="block py-2 text-gray-300">' . htmlspecialchars($settings_data['menu_portfolio']) . '</a>';
                 echo '<a href="' . HOME_URL . '#blog" class="block py-2 text-gray-300">' . htmlspecialchars($settings_data['menu_blog']) . '</a>';
@@ -228,18 +228,21 @@ $active_style = $active_style_stmt->fetchColumn();
                         $manifest_data = json_decode(file_get_contents($manifest_file), true);
                         if (isset($manifest_data['pages']) && is_array($manifest_data['pages'])) {
                             foreach ($manifest_data['pages'] as $plugin_page) {
+                                
+                                $is_admin_page = $plugin_page['admin_only'] ?? false;
+                                $show_in_main_menu = $plugin_page['show_in_menu'] ?? false;
 
-                                if (isset($plugin_page['admin_only']) && $plugin_page['admin_only']) {
-                                    continue;
-                                }
-                                if (isset($plugin_page['menu_title'], $plugin_page['slug'])) {
+                                if ($show_in_main_menu && !$is_admin_page) {
+                                    $menu_text = $plugin_page['menu_title'] ?? ($settings_data[$plugin_page['menu_title_lang_key']] ?? 'Link');
+
                                     if ($use_pretty_urls) {
                                         $page_url = HOME_URL . '' . $plugin_folder_name . '/' . $plugin_page['slug'];
                                     } else {
-                                        $page_url = HOME_URL . 'page.php/' . $plugin_folder_name . '/' . $plugin_page['slug'];
+                                        $page_url = HOME_URL . 'view/page.php/' . $plugin_folder_name . '/' . $plugin_page['slug'];
                                     }
-                                    echo '<a href="' . htmlspecialchars($page_url) . '" class="block py-2 text-gray-300">' . htmlspecialchars($plugin_page['menu_title']) . '</a>';
+                                    echo '<a href="' . htmlspecialchars($page_url) . '" class="block py-2 text-gray-300">' . htmlspecialchars($menu_text) . '</a>';
                                 }
+
                             }
                         }
                     }
@@ -257,7 +260,6 @@ $active_style = $active_style_stmt->fetchColumn();
                 <a href="<?php echo PROFILE_URL_BASE . urlencode($_SESSION['username']); ?>" class="block py-2 text-gray-300"><?php echo htmlspecialchars($settings_data['menu_profile']); ?></a>
                 <?php if ($_SESSION['is_admin']): ?>
                 <a href="<?php echo MANAGE_URL; ?>" class="block py-2 text-gray-300"><?php echo htmlspecialchars($settings_data['menu_admin_dashboard']); ?></a>
-                <a href="<?php echo MANAGE_PLUGINS_URL; ?>" class="block py-2 text-gray-300"><?php echo htmlspecialchars($settings_data['menu_plugin_settings']); ?></a>
                 <?php
                 
                     $plugin_manifests = glob(PROJECT_ROOT . '/ext/*/plugin.json');
@@ -272,9 +274,9 @@ $active_style = $active_style_stmt->fetchColumn();
                                         if ($use_pretty_urls) {
                                             $page_url = HOME_URL . '' . $plugin_folder_name . '/' . $plugin_page['slug'];
                                         } else {
-                                            $page_url = HOME_URL . 'page.php/' . $plugin_folder_name . '/' . $plugin_page['slug'];
+                                            $page_url = HOME_URL . 'view/page.php/' . $plugin_folder_name . '/' . $plugin_page['slug'];
                                         }
-                                        echo '<a href="' . htmlspecialchars($page_url) . '" class="block px-4 py-2 text-sm text-gray-300 hover:bg-sky-500 hover:text-white">' . htmlspecialchars($plugin_page['menu_title']) . '</a>';
+                                        echo '<a href="' . htmlspecialchars($page_url) . '" class="block py-2 text-gray-300 hover:bg-sky-500 hover:text-white">' . htmlspecialchars($plugin_page['menu_title']) . '</a>';
                                     }
                                 }
                             }

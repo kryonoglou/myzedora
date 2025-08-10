@@ -75,7 +75,7 @@ require_once HEADER;
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     <?php foreach ($members as $member): ?>
                         <?php
-                            $profile_image_src = !empty($member['profile_image_url']) ? htmlspecialchars($member['profile_image_url']) : 'https://www.myzedora.com/img/notset.webp';
+                            $profile_image_src = !empty($member['profile_image_url']) ? htmlspecialchars($member['profile_image_url']) : '/img/notset.webp';
                         ?>
                         <div class="bg-gray-800/50 p-6 rounded-lg shadow-lg text-center transform transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl">
                             <img src="<?php echo $profile_image_src; ?>" alt="<?php echo htmlspecialchars($member['full_name']); ?>'s Profile" class="w-24 h-24 rounded-full mx-auto mb-4 border-2 border-sky-500 object-cover">

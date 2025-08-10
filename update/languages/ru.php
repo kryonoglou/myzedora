@@ -23,12 +23,10 @@ return [
     'admin_pass_label' => 'Пароль Администратора',
     'install_button' => 'Установить myZedora CMS',
     'success_title' => 'Установка Завершена!',
-    'success_message' => 'myZedora CMS успешно установлена. В целях безопасности директория установки была заблокирована. Теперь вы можете изучить вашу новую систему.',
+    'success_message' => 'myZedora CMS (v1.1-beta) успешно установлена. В целях безопасности директория установки была заблокирована. Теперь вы можете изучить вашу новую систему.',
     'visit_site_button' => 'Запустить myZedora CMS',
 
     'site_settings' => [
-        'site_language' => 'ru',
-        
         'site_title' => 'myZedora',
 
         'enable_tinymce' => '0',
@@ -265,8 +263,6 @@ return [
         'members_save_btn' => 'Сохранить Роль',
         'members_delete_btn' => 'Удалить Пользователя',
         'members_no_members_found' => 'Участники, соответствующие вашим критериям, не найдены.',
-        'manage_all_registered_users' => 'Управляйте всеми зарегистрированными пользователями в системе.',
-        'current_user_members' => 'Текущий пользователь',
 
         'settings_url_structure_title' => 'Настройки Структуры URL',
         'settings_url_classic' => 'Классический (например, /post/index.php?slug=my-post)',

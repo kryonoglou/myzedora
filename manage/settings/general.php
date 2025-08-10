@@ -46,17 +46,6 @@
         <p class="text-xs text-gray-500 mt-1"><?php echo htmlspecialchars($settings_data['settings_url_hint']); ?></p>
     </div>
 </fieldset>
-
-<fieldset>
-    <legend class="text-xl font-bold text-white mb-4 border-b border-gray-700 pb-2"><?php echo htmlspecialchars($settings_data['settings_environment_title']); ?></legend>
-    <div class="space-y-6">
-        <div class="flex items-center">
-            <input type="hidden" name="settings_app_env" value="production">
-            <input type="checkbox" id="app_env_checkbox" name="settings_app_env" value="development" class="form-checkbox h-5 w-5 text-sky-500" <?php if (($env_vars['APP_ENV'] ?? '') === 'development') echo 'checked'; ?>>
-            <label for="app_env_checkbox" class="ml-2 text-gray-300 text-sm font-semibold"><?php echo htmlspecialchars($settings_data['settings_set_development']); ?></label>
-        </div>
-    </div>
-</fieldset>
 <fieldset>
     <legend class="text-xl font-bold text-white mb-4 border-b border-gray-700 pb-2"><?php echo htmlspecialchars($settings_data['members_visibility_title']); ?></legend>
     <div>
@@ -67,5 +56,15 @@
             <option value="admins" <?php if (($raw_settings_data['members_page_visibility'] ?? 'members') == 'admins') echo 'selected'; ?>><?php echo htmlspecialchars($settings_data['members_visibility_option_admins']); ?></option>
         </select>
         <p class="text-xs text-gray-500 mt-1"><?php echo htmlspecialchars($settings_data['members_visibility_hint']); ?></p>
+    </div>
+</fieldset>
+<fieldset>
+    <legend class="text-xl font-bold text-white mb-4 border-b border-gray-700 pb-2"><?php echo htmlspecialchars($settings_data['settings_environment_title']); ?></legend>
+    <div class="space-y-6">
+        <div class="flex items-center">
+            <input type="hidden" name="settings_app_env" value="production">
+            <input type="checkbox" id="app_env_checkbox" name="settings_app_env" value="development" class="form-checkbox h-5 w-5 text-sky-500" <?php if (($env_vars['APP_ENV'] ?? '') === 'development') echo 'checked'; ?>>
+            <label for="app_env_checkbox" class="ml-2 text-gray-300 text-sm font-semibold"><?php echo htmlspecialchars($settings_data['settings_set_development']); ?></label>
+        </div>
     </div>
 </fieldset>
