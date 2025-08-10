@@ -15,7 +15,7 @@ unset($_SESSION['plugin_manage_message'], $_SESSION['plugin_manage_type']);
 $plugins_path = PROJECT_ROOT . '/ext';
 $remote_plugins_list = [];
 
-$remote_url = 'https://www.myzedora.com/get/plugins.json';
+$remote_url = 'https://get.myzedora.com/plugins.json';
 
 try {
     $context = stream_context_create(['http' => ['timeout' => 10]]);

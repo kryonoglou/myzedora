@@ -16,7 +16,7 @@ if (!isset($_SESSION['user_id']) || !$_SESSION['is_admin']) {
 }
 
 try {
-    $version_manifest_url = 'https://www.myzedora.com/get/update/version.json';
+    $version_manifest_url = 'https://get.myzedora.com/version.json';
     $context = stream_context_create(['http' => ['timeout' => 30]]);
     $manifest_json = @file_get_contents($version_manifest_url, false, $context);
 

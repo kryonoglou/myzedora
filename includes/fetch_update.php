@@ -4,7 +4,7 @@ header('Content-Type: application/json');
 
 require_once __DIR__ . '/map.php';
 
-$update_url = 'https://www.myzedora.com/get/update/version.json';
+$update_url = 'https://get.myzedora.com/version.json';
 
 $response = [
     'latestVersion' => null,
